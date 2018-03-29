@@ -34,3 +34,11 @@ Does someone's favorite data science task have an effect on their choice between
 
 
 ### Alignment with the  UBC Office of Research Ethics document on Using Online Surveys
+
+Authors: 
+
+NAZLI OZUM KAFAEE
+
+PRASH MEDIRATTAA
+
+AVINASH PRABHAKARAN
