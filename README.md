@@ -33,9 +33,22 @@ Does someone's favorite data science task have an effect on their choice between
 *Describe how you plan to analyze the survey results (e.g., what statistical test(s) do you plan to employ?).*
 
 
-### Alignment with the  UBC Office of Research Ethics document on Using Online Surveys
+## UBC Office of Research Ethics guidelines pertaining to our surveys 
 
-Authors: 
+
+* As a part of our survey, if our online survey company 
+ is outside Canada, we will inform the respondents about the same.
+
+
+*  As a part of our survey, we assure no personal information will be collected during the survey study like (Student no, Name). To avoid directly identifying the respondents
+
+* As a part of our survey, we will ensure individual identity will be protected as per UBC and FIPP research guidelines
+
+
+
+
+
+####Authors: 
 
 NAZLI OZUM KAFAEE
 
