@@ -48,7 +48,7 @@ Does someone's favorite data science task have an effect on their choice between
 
 
 
-##Authors: 
+## Authors: 
 
 NAZLI OZUM KAFAEE
 
