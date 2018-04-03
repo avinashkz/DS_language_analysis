@@ -18,7 +18,7 @@ Does someone's favorite data science task have an effect on their choice between
 	* Machine Learning
 
 
-## Confounding variables
+## Confounding Variables
 
 * Academic background
 	* Computer Science/Computer Engineering
@@ -33,7 +33,7 @@ We think the academic background would be a confounding variable as people with 
 For the statistical analysis, we are planning to use Generalized Linear Model(GLM) as the response variable is discrete and we have more than two groups when we consider the confounding variable.
 
 
-## UBC Office of Research Ethics guidelines pertaining to our surveys 
+## UBC Office Of Research Ethics Guidelines Pertaining To Our Survey
 
 
 * As a part of our survey, if our online survey company 
