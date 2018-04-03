@@ -25,12 +25,12 @@ Does someone's favorite data science task have an effect on their choice between
 	* Mathematics/Statistics
 	* Other
 
-*justify/explain why you plan to include them*
+We think the academic background would be a confounding variable as people with Computer Science/Computer Engineering background would have been introduced to Python as part of their degree and R would have been introduced to students of Mathematics/Statistics degrees. However, we do not anticipate any bias towards R or Python by students of any other degrees.
 
 	
 ## Statistical Analysis
 
-*Describe how you plan to analyze the survey results (e.g., what statistical test(s) do you plan to employ?).*
+For the statistical analysis, we are planning to use Generalized Linear Model(GLM) as the response variable is discrete and we have more than two groups when we consider the confounding variable.
 
 
 ## UBC Office of Research Ethics guidelines pertaining to our surveys 
@@ -45,13 +45,10 @@ Does someone's favorite data science task have an effect on their choice between
 * As a part of our survey, we will ensure individual identity will be protected as per UBC and FIPP research guidelines
 
 
-
-
-
 ## Authors: 
 
-NAZLI OZUM KAFAEE
+Nazli Ozum Kafaee
 
-PRASH MEDIRATTAA
+Prash Medirattaa
 
-AVINASH PRABHAKARAN
+Avinash Prabhakaran
