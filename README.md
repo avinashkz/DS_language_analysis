@@ -20,7 +20,7 @@ Does someone's favorite data science task have an effect on their choice between
 
 ## Confounding Variables
 
-* Academic Background
+* Academic Background of the user.
     * Computer Science/Computer Engineering
     * Mathematics/Statistics
     * Other
@@ -34,7 +34,7 @@ We think the academic background would be a confounding variable as people with 
 
 We think the user's outlook towards coding could be a confounder as Python is a General purpose programming language and it can be used in various areas, and its application is not limited Data Science/Statistics whereas R is a Statistical programming language and is mainly used only in the fields of Data Science and Statistics.
 
-* First Programming Language
+* First Programming Language of the user.
     * Python
     * R
     * SAS
@@ -45,7 +45,7 @@ We think the user's outlook towards coding could be a confounder as Python is a 
 We think a person's first programming language will be very influential as it dictates their style of coding and will also be a deciding factor in what they seek for in other languages. Some of the languages, listed above are more closely related to Python whereas some others are more related to R.  
 
 
-* Number of programming languages actively using.
+* Number of programming languages actively being used.
     * 1
     * 2
     * 3
@@ -54,7 +54,7 @@ We think a person's first programming language will be very influential as it di
 
 We believe that the number of programming languages a person actively uses could be a deciding factor as it can dictate how comfortable the user is in using different syntaxes and will also be indicative of how flexible the user.
 
-* Years of coding experience before using Python/R
+* Years of coding experience prior to using Python/R
     * < 1
     * 1 - 5
     * \> 5
