@@ -50,7 +50,7 @@ We think a person's first programming language will be very influential as it di
     * 2
     * 3
     * 4
-    * >5
+    * \> 5
 
 We believe that the number of programming languages a person actively uses could be a deciding factor as it can dictate how comfortable the user is in using different syntaxes and will also be indicative of how flexible the user.
 
