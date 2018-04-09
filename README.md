@@ -68,6 +68,9 @@ For the statistical analysis, we are planning to use Generalized Linear Model(GL
 
 ## Survey Questions
 
+
+ Survey link:  https://goo.gl/forms/zdl0VlHK2NwAfflE3
+
 ![](docs/survey_questions1.png)
 ![](docs/survey_questions2.png)
 
