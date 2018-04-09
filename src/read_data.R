@@ -1,0 +1,7 @@
+suppressPackageStartupMessages(library("googlesheets"))
+suppressPackageStartupMessages(library("dplyr"))
+suppressPackageStartupMessages(library("readr"))
+my_sheets <- gs_ls()
+title <- gs_title(my_sheets$sheet_title)
+responses <- gs_read(title)
+write_csv(x = responses, path = "data/survery_responses.csv")
