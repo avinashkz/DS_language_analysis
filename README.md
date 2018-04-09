@@ -66,6 +66,11 @@ We believe that the years of coding experience could be a confounder as it can b
 
 For the statistical analysis, we are planning to use Generalized Linear Model(GLM) as the response variable is discrete and we have more than two groups when we consider the confounding variable.
 
+## Survey Questions
+
+![](docs/survey_questions1.png)
+![](docs/survey_questions2.png)
+
 
 ## UBC Office Of Research Ethics Guidelines Pertaining To Our Survey
 
