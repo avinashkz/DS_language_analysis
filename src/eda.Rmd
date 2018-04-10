@@ -18,34 +18,39 @@ knitr::opts_chunk$set(echo = TRUE)
 text-align: center;
 }
 
+img {
+ width: 40%;
+ height: 30%
+}
+
 </style>
 
 <div class = "middle">
-<img src = "../docs/academics.png" width = 40% height = 30%>
-<img src = "../docs/academics_prop.png" width = 40% height = 400>
+<img src = "../docs/academics.png">
+<img src = "../docs/academics_prop.png">
 </div>
 
 <div class = "middle">
-<img src = "../docs/experience.png" width = "400" height = "400">
-<img src = "../docs/experience_prop.png" width = "400" height = "400">
+<img src = "../docs/experience.png">
+<img src = "../docs/experience_prop.png">
 </div>
 
 <div class = "middle">
-<img src = "../docs/attitude.png" width = "400" height = "400">
-<img src = "../docs/attitude_prop.png" width = "400" height = "400">
+<img src = "../docs/attitude.png">
+<img src = "../docs/attitude_prop.png">
 </div>
 
 <div class = "middle">
-<img src = "../docs/first_language.png" width = "400" height = "400">
-<img src = "../docs/first_language_prop.png" width = "400" height = "400">
+<img src = "../docs/first_language.png">
+<img src = "../docs/first_language_prop.png">
 </div>
 
 <div class = "middle">
-<img src = "../docs/task.png" width = "400" height = "400">
-<img src = "../docs/task_prop.png" width = "400" height = "400">
+<img src = "../docs/task.png">
+<img src = "../docs/task_prop.png">
 </div>
 
 <div class = "middle">
-<img src = "../docs/active_use.png" width = "400" height = "400">
-<img src = "../docs/active_use_prop.png" width = "400" height = "400">
+<img src = "../docs/active_use.png">
+<img src = "../docs/active_use_prop.png">
 </div>
