@@ -3,3 +3,5 @@
 .Rproj.user
 .httr-oauth
 .Rhistory
+packrat/lib*/
+.Rprofile
