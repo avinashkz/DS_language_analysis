@@ -86,6 +86,13 @@ For the statistical analysis, we are planning to use Generalized Linear Model(GL
 
 * As a part of our survey, we will ensure individual identity will be protected as per UBC and FIPP research guidelines
 
+## How to Run the Data Analysis Pipeline
+
+make all: To run the complete pipeline.
+
+make clean: To delete the raw data.
+
+make remove: To delete all the plots, rendered documents and data.
 
 ## Authors: 
 
