@@ -2,7 +2,7 @@
 title: "Prash_survey_analysis"
 author: "prash"
 date: '2018-04-09'
-output: html_document
+output: github_document
 ---
 
 ```{r setup, include=FALSE}
@@ -60,9 +60,9 @@ survey_analysis %>% group_by(preferprog)%>%
 
 
 #?str_replace
+#survey_analysis$academic <- str_replace(survey_analysis$academic,"Mathematics / Statistics","Math & Stats")
 
-
-survey_analysis$academic <- str_replace(survey_analysis$academic,"Computer Science / Computer Engineering","Computer")
+survey_analysis$academic <- str_replace(survey_analysis$academic,"Computer Science / Computer Engineering","computer")
 
 survey_analysis$academic <- str_replace(tolower(survey_analysis$academic),".*econ.*","business")
 
@@ -70,11 +70,11 @@ survey_analysis$academic <- str_replace(tolower(survey_analysis$academic),".*bus
 
 survey_analysis$academic <- str_replace(tolower(survey_analysis$academic),".*eng.*","engineering")
 
-survey_analysis$academic <- str_replace(tolower(survey_analysis$academic),".*science.*","science")
+
 
 # Creating a vector, putting all the fields to others 
 
-survey_clean_1 <- c("business","computer","engineering","science","Mathematics / Statistics")
+survey_clean_1 <- c("business","computer","engineering","mathematics / statistics")
 
 #interact_clean$name[!(interact_clean$name %in% interact_clean_1)] <- "other"
 
@@ -84,9 +84,10 @@ survey_analysis$academic[!(survey_analysis$academic%in% survey_clean_1)] <- "oth
 # Summary 
 survey_analysis_count<- survey_analysis %>% 
   group_by(academic) %>% 
-  summarise(count=n())
+  summarise(count=n()) %>% 
+  View()
 
-kable(survey_analysis_count)
+
 
 
 ```
