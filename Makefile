@@ -11,9 +11,13 @@ all: report
 read_data:
 	Rscript src/read_data.R
 
+#Cleans raw data and prepares data for analysis
+read_data:
+	Rscript src/clean_data.R
+
 #To generate bar and proportion plots
 eda: read_data
-	Rscript src/visualizations.R
+	Rscript src/get_plots.R
 
 #To create the report.
 report: eda
