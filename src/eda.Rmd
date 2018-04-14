@@ -1,56 +1,43 @@
 ---
 title: "Exploratory Data Analysis"
 author: "Ozum, Prash, Avinash"
-date: '2018-04-09'
-output:
+date: "4/14/2018"
+output: 
   html_document:
-    keep_md: true
+    keep_md: yes
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+### Distribution of variables 
 
-<style>
+![](../docs/background.png)
+![](../docs/coding_experience.png)
+![](../docs/coding_love.png)
+![](../docs/first_language.png)
 
-.middle {
-text-align: center;
-}
+![](../docs/task_preference.png) 
 
-img {
- width: 40%;
- height: 30%
-}
+![](../docs/active_languages.png)
 
-</style>
+### Proportions of language preference based on confounding variables
 
-<div class = "middle">
-<img src = "../docs/academics.png">
-<img src = "../docs/academics_prop.png">
-</div>
+![](../docs/background_prop.png)
 
-<div class = "middle">
-<img src = "../docs/experience.png">
-<img src = "../docs/experience_prop.png">
-</div>
+![](../docs/coding_experience_prop.png)
 
-<div class = "middle">
-<img src = "../docs/attitude.png">
-<img src = "../docs/attitude_prop.png">
-</div>
+![](../docs/coding_love_prop.png)
 
-<div class = "middle">
-<img src = "../docs/first_language.png">
-<img src = "../docs/first_language_prop.png">
-</div>
+![](../docs/first_language_prop.png)
 
-<div class = "middle">
-<img src = "../docs/task.png">
-<img src = "../docs/task_prop.png">
-</div>
+![](../docs/active_languages_prop.png)
 
-<div class = "middle">
-<img src = "../docs/active_use.png">
-<img src = "../docs/active_use_prop.png">
-</div>
+
+## Proportions of language preference based on task preference
+
+![](../docs/task_preference_prop.png)
+
+
+
