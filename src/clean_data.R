@@ -18,4 +18,4 @@ survey <- survey %>%
   mutate(first_language = ifelse(first_language %in% c("Python", "R", "Matlab", "SAS", "C", "Java"), first_language, "Other"))
 
 # Write cleaned data into csv file
-write.csv(survey, "docs/survey_results_clean.csv")
+write.csv(survey, "docs/survey_results_clean.csv", row.names = FALSE)

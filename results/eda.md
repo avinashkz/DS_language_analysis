@@ -1,49 +1,36 @@
----
-title: "Exploratory Data Analysis"
-author: "Ozum, Prash, Avinash"
-date: '2018-04-09'
-output:
-  html_document:
-    keep_md: true
----
+# Exploratory Data Analysis
+Ozum, Prash, Avinash  
+4/14/2018  
 
 
 
+### Distribution of variables 
 
-<style>
+![](../docs/background.png)
+![](../docs/coding_experience.png)
+![](../docs/coding_love.png)
+![](../docs/first_language.png)
 
-.middle {
-text-align: center;
-}
+![](../docs/task_preference.png) 
 
-</style>
+![](../docs/active_languages.png)
 
-<div class = "middle">
-<img src = "../docs/academics.png" width = "400" height = "400">
-<img src = "../docs/academics_prop.png" width = "400" height = "400">
-</div>
+### Proportions of language preference based on confounding variables
 
-<div class = "middle">
-<img src = "../docs/experience.png" width = "400" height = "400">
-<img src = "../docs/experience_prop.png" width = "400" height = "400">
-</div>
+![](../docs/background_prop.png)
 
-<div class = "middle">
-<img src = "../docs/attitude.png" width = "400" height = "400">
-<img src = "../docs/attitude_prop.png" width = "400" height = "400">
-</div>
+![](../docs/coding_experience_prop.png)
 
-<div class = "middle">
-<img src = "../docs/first_language.png" width = "400" height = "400">
-<img src = "../docs/first_language_prop.png" width = "400" height = "400">
-</div>
+![](../docs/coding_love_prop.png)
 
-<div class = "middle">
-<img src = "../docs/task.png" width = "400" height = "400">
-<img src = "../docs/task_prop.png" width = "400" height = "400">
-</div>
+![](../docs/first_language_prop.png)
 
-<div class = "middle">
-<img src = "../docs/active_use.png" width = "400" height = "400">
-<img src = "../docs/active_use_prop.png" width = "400" height = "400">
-</div>
+![](../docs/active_languages_prop.png)
+
+
+## Proportions of language preference based on task preference
+
+![](../docs/task_preference_prop.png)
+
+
+
