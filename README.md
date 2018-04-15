@@ -2,6 +2,8 @@
 
 In this data analysis project, we aim to understand how the choice of programming language is affected by the preference of a data science task. 
 
+Our exploratory data analysis report can be found [here](results/report.md).
+
 ## Question
 
 Does someone's favorite data science task have an effect on their choice between R and Python?
@@ -70,9 +72,15 @@ For the statistical analysis, we are planning to use Generalized Linear Model(GL
 
 
  Survey link:  https://goo.gl/forms/zdl0VlHK2NwAfflE3
+ 
 
-![](docs/survey_questions1.png)
-![](docs/survey_questions2.png)
+## How to Run the Data Analysis Pipeline
+
+`make all`: To run the complete pipeline.
+
+`make clean`: To delete all plots, rendered documents and wrangled data.
+
+`make remove`: To delete all plots, rendered documents, wrangled data as well as the raw data.
 
 
 ## UBC Office Of Research Ethics Guidelines Pertaining To Our Survey
@@ -86,18 +94,11 @@ For the statistical analysis, we are planning to use Generalized Linear Model(GL
 
 * As a part of our survey, we will ensure individual identity will be protected as per UBC and FIPP research guidelines
 
-## How to Run the Data Analysis Pipeline
-
-**make all**: To run the complete pipeline.
-
-**make clean**: To delete the raw data.
-
-**make remove**: To delete all the plots, rendered documents and data.
 
 ## Authors: 
 
-Nazli Ozum Kafaee
+- Nazli Ozum Kafaee
 
-Prash Medirattaa
+- Prash Medirattaa
 
-Avinash Prabhakaran
+- Avinash Prabhakaran
