@@ -1,10 +1,19 @@
 ---
-title: "Report"
-author: "Ozum, Prash, Avinash"
-date: '2018-04-14'
+title: "Data Science Language Analysis"
+subtitle: <h1><u>EDA Report</u></h1>
+author: 
+  - "Nazli Ozum Kafaee"
+  - "Prash Medirattaa"
+  - "Avinash Prabhakaran"
+date: '2018-04-15'
 output:
   html_document:
     keep_md: yes
+    toc: true
+    toc_float: true
+    theme: united
+    highlight: tango
+    
 ---
 
 ```{r setup, include=FALSE}
@@ -27,117 +36,60 @@ plot_title <- c("Academic Background", "Years of Coding Experience", "Attitude T
 plot_colors <- c("red", "blue4")
 ```
 
-####Introduction 
+# Introduction 
 
-In continuation of the proposal, we submitted a team last week. We created the survey to capture from the users, so as we can analyze that data collected. We used Survey Monkey as n this data analysis project, we aim to understand how the choice of programming language is affected by the preference of a data science task.We successfully rolled out the survey to people in MDS and elsewhere our main Aim was to get answers to the answers t
- Our main Aim through the survey was to find out answer choice of programming language is affected by the preference of a data science task.
+In our data analysis project, we wanted to understand how the choice of programming language is affected by the preference of a data science task. We chose to restrict the programming language into 2 options as Python and R. We also restricted the data science task to data wrangling, data visualization and machine learning. Our hypothesis was that we would observe a significant difference in a person's favoring of R or Python depending on their favorite choice of data science task. Therefore, we designed our survey to primarily understand if this hypothesis is relevant.
 
-####Methodology 
+In our survey, we had to take into account some confounding variables too. Therefore, we collected data on the user's academic background, their attitude towards coding, the first programming language they learned, the number of programming languages they actively use, and their experince in programming in years.
 
-We created the survey using Google forms since the data is hosted in the US. Users were required to provide their consent to proceed. The survey had 7 easy to follow the question. We succfully rolled out this survey and were managed to get `85 +` responses. The audience targeted were specifically from data science community. Initially, the survey was given to current MDS cohort, faculty and TA's. Then the survey was shared on the various data science channel, wats app groups, and LinkedIn groups. 
+# Methodology and Tools 
 
+We created the survey on Google Forms. The data is hosted in the US, but we made sure to inform our respondents in Canada of this issue in the beginning of the survey. Users were required to provide their consent to proceed. The survey had 7 easy to follow the question. We successfully rolled out this survey and were managed to collect 85 responses. The audience targeted were specifically from the data science community. Initially, the survey was given to current MDS cohort, faculty and TA's. Then the survey was shared on the various data science channels, watsapp groups, and LinkedIn groups. 
 
-####Wrangling 
+# Data Wrangling 
 
-Data was collected, for analysis and EDA. Data wrangling was done majority to get capture academic background information. The first question `What is your academic background? `  had two options computer science, math-stats and others.  Surprisingly `others` which comprised a lot of option made the second highest in terms of share. We decided to narrow down the option. We narrowed subclassified `others` from survey to (`Engineering`, `Business / Economics`) and rest put everything to `others`.Option for first programming language also was wrangled and all other options were clubbed together. 
+We had to do some initial wrangling in order to prepare the data collected for exploratory data analysis. Data wrangling was done primarily to capture the academic background information. The first question in our survey was "What is your academic background?". This question had three main options "Computer Science / Computer Engineering", "Mathematics / Statistics" and "Other". The "Others" option enabled the user to freely type their academic background if it did not fit in the main two categories listed previously. We saw that in the end, "Other" comprised a lot of different answers and made the second highest in terms of share. We decided to split "Other" category and create new categories as we saw that there were aggregate patterns in the data. We observed that engineering and business studies were recurring answers in the results, so we decided to create new categories for these and leave the rest to "Others". Therefore, we added "Engineering" and "Business / Economics" as new categories and remained the rest to "Other".
 
+We were faced with a similar issue in one of our following questions. When we asked the repondents which programming language they learned first, we gave them six main options to choose from and an "Other" option to fill in if necessary. Again, they could freely type the name of their first programming language if it was not one of the predetermined languages listed by us. We observed that the "Other" option comprised of varying languages but each answer held one or two people and none of the languages that we had not listed really represented a major group of people. Therefore, we aggregated all answers in "Other" and kept them together.
 
-```{r, eval=FALSE, echo=TRUE}
+Our code for the data cleaning process described above can be found [here]("src/clean_data.R").
+
+```{r, eval=FALSE}
 survey <- survey %>% 
   rowwise() %>% 
   mutate(background = ifelse(background %in% c("Computer Science / Computer Engineering", "Mathematics / Statistics"), background, 
 ifelse(sum((str_detect(tolower(background), c("economics", "business", "finance")))) > 0 , "Business / Economics", ifelse((str_detect(tolower(background), "eng")), 
 "Engineering", "Other") ))) %>% 
   mutate(first = ifelse(first %in% c("Python", "R", "Matlab", "SAS", "C", "Java"), first, "Other"))
-  ```
+```
 
-####EDA Plot 
+# Visualizations 
 
-#####Plot 1 
+## Distribution of Primary Variables
 
-```{r}
+### Language Preference
+
+The plot below represents the basic split of the language preference with the number of respondents. 55 people say they prefer Python over R and 30 say the reverse.
+
+```{r, fig.align='center'}
 #R or Python !!
 pie_plot(responses[,c(5,5)], 5, plot_title, colnames(responses[,5]))
 ```
 
+Even though there is not an even distribution, we can say that we have collected a good number of responses from people preferring either of the languages.
 
-This is the first graph represents the basic split of the language preference of no of users. The users are primarily people from data science community prefer python and that was not a surprise. 
+### Favorite Data Science Task
 
+The plot below shows the split of the people with different choice for their favorite data science task. We see that the majority of people have chosen machine learning as their preferred data science task and data wrangling seems to be the least favorite based on the numbers.
 
-#####Plot 2
-
-```{r}
-#Academic Background
-#proportion_plot(responses[,c(1,5)], 1, plot_title, colnames(responses[,1]))
-bar_plot(responses[,c(1,5)], 1, plot_title, colnames(responses[,1]))
-```
-
-Bar plot captures the information pertaining to the academic background which is was the most important question of our survey. We think academic background will be a confounding variable, as we can see a various relationship of streams with different programming languages. In total, we captured like `85` responses in total. Maximum no respondents were recent computer science graduates closely followed by mathematics and statistics graduates. One interesting inference that we can conclude would no of people from diverse backgrounds pursuing data science. It is definitely growing at a very steady pace. 
-
-
-
-
-#####Plot 3 and Plot 4 
-
-
-```{r}
-#Years of Coding Experience
-pie_plot(responses[,c(2,5)], 2, plot_title, colnames(responses[,2]))
-
-responses %>% 
-  ggplot() +
-  geom_bar(aes(x = preference,fill = preference), alpha = 0.7) +
-  facet_wrap(~experience) + theme_bw() +
-  scale_fill_manual(name = "Choice of languge", values = plot_colors) +
-   ggtitle("Facet plot for Years of Coding Experience") + xlab("Years of Coding Experience") + ylab("Count") +
-  theme(plot.title = element_text(hjust = 0.5, size=16))
-
-```
-
-
-The second visualization is addressing the second question that is the no of years of coding experience. Our group believes using that this question can very well influence the user choice towards selecting programming language that affects data science task taken. Almost `50%` of the respondents had between `1-5 years` of coding experience. It shows people who had good coding experience are transitioning towards data science. 
-
-One of the questions that were addressed in the survey was no of years coding experience. Decoded to see a relationship between no of years of coding experience and choice of language R or python. We can clearly see python is a clear winner for two categories, but for people who had less than one-year experience in R and python, the response level was same.
-
-
-
-#####Plot 5 and Plot 6 
-
-
-```{r}
-#Attitude Towards 
-pie_plot(responses[,c(3,5)], 3, plot_title, colnames(responses[,3]))
-
-responses %>% 
-  ggplot() +
-  geom_bar(aes(x = preference, fill = preference), alpha = 0.7) +
-  facet_wrap(~attitude) + theme_bw() +
-  scale_fill_manual(name = "Choice of languge", values = plot_colors) +
-   ggtitle("Facet Plot for Attitude Towards Coding") + xlab("Choice of language") + ylab("Count") +
-  theme(plot.title = element_text(hjust = 0.5, size=16))
-```
-
-Plots above we  tried visualizing the question ` Do you enjoy/love coding?`. The first graph pie chart, we can clearly see the majority of people love coding from the respondents. Now we tried to see what can be the relationship between `R and python`. We can see respondents who loved coding their preferred language was python, and for the people who didn't like coding their preferred language is R. There shows python is a preferred language than R for data science professionals. 
-
-#####Plot 7
-
-```{r}
-#First Programming Language
-#proportion_plot(responses[,c(4,5)], 4, plot_title, colnames(responses[,4]))
-bar_plot(responses[,c(4,5)], 4, plot_title, colnames(responses[,4]), flip = FALSE)
-```
-
-
-
-We asked respondents about their first programming language and seeing their transition to either R or python. We think person first programming language is very influential and it can decide what other language people pick up.  Other language had some traditional language like Basis, Dos, and Pascal etc. Majority of our respondents `C` was their favorite language followed by python. 
-
-
-
-#####Plot 8 and Plot 9
-```{r}
+```{r, fig.align='center'}
 #Preferred Data Science Task
 pie_plot(responses[,c(6,5)], 6, plot_title, colnames(responses[,6]))
+```
 
+Of course, our main aim is to relate these tasks to which programming language people prefer more. For Machine learning clearily Python is the preferred language, but for Data visualization, R seems to be the preferred language. Both these results are not surprising given our initial expectations. However, interestingly for wrangling Python and R were equally preferred. Our initial hypothesis was to see R preferred more when it came to data wrangling. 
+
+```{r, fig.align='center'}
 responses %>% 
   ggplot() +
   geom_bar(aes(x = preference,fill = preference), alpha = 0.7) +
@@ -147,29 +99,23 @@ responses %>%
   theme(plot.title = element_text(hjust = 0.5,size=16))
 ```
 
+<br>
 
+## Distribution of Confounding Variables
 
-What is your favorite data science task?
+### Academic Background
 
-Plots above, tried addressing what is your favorite Data science task. `Data Wrangling`, `Data Visualization` or `Machine Learning` and relating these task to which programming language you prefer more. For Machine learning clearily `python`  is preferred language. For Data visualization, `R` is a preferred language.  Interestingly for wrangling `python` and `R` were equally preferred. 
+We had thought that the academic background would be a confounding variable as people with Computer Science/Computer Engineering background would have been introduced to Python as part of their degree and R would have been introduced to students of Mathematics/Statistics degrees. However, we had not anticipated any bias towards R or Python by students of any other degrees.
 
-
-
-### Plot 10 
-```{r}
-#Number of Languages Actively Being Used
-#proportion_plot(responses[,c(6,5)], 6, plot_title, colnames(responses[,7]))
-bar_plot(responses[,c(7,5)], 7, plot_title, colnames(responses[,7]), flip = FALSE)
+```{r, fig.align='center'}
+#Academic Background
+#proportion_plot(responses[,c(1,5)], 1, plot_title, colnames(responses[,1]))
+bar_plot(responses[,c(1,5)], 1, plot_title, colnames(responses[,1]))
 ```
 
+In our survey, we captured 85 responses in total. Maximum number of respondents were computer science or computer engineering graduates closely followed by mathematics and statistics graduates. As we can see above, our initial hypothesis about computer graduates leaning more towards python seems to be relevant. However, there did not seem to be a significant difference in the preference between Python and R given other academic backgrounds. 
 
-This graph tried addressing `How many programming languages do you use actively?`.  Maximum no of users prefer two languages out of the respondents.  People who knew 3 languages, python was a preferred language. 
-
-
-
-### Plot 11
-```{r, message=FALSE, warning=FALSE}
-
+```{r, message=FALSE, warning=FALSE, fig.align='center'}
 grouped_df <- responses %>% group_by(background, preference, task) %>% summarise(count = n())
 
 ggplot(grouped_df,
@@ -185,12 +131,79 @@ ggplot(grouped_df,
   theme(plot.title = element_text(hjust = 0.5,size=16))
 ```
 
+The graph above shows the relationship between the tasks `Data Viz` , `Data Wrangling` and `Machine Learning` and the preferred languages `Python` and `R`.
 
-If we look at graph above it shows the relationship between the tasks `Data Viz , Data Wrangling and Machine Learning` and the preferred languages `Python and R`.
+### Coding Experience 
 
-#####Conclusion 
+We had the belief that the years of coding experience could be a confounder as it can be indicative of how open the user is in selecting a statistical programming language over a general purpose programming language. However, we also realize that it is possible that a user can become highly opinionated when they have greater experience, and they might prefer Python. Therefore, we wanted to include this variable in our survey as it would be an interesting to analyze.
 
-After looking at the plots above, data appears to be promising for further analysis for final milestone. It appears some of the variables are confounders. 
+```{r, fig.align='center'}
+#Years of Coding Experience
+pie_plot(responses[,c(2,5)], 2, plot_title, colnames(responses[,2]))
+```
+
+The plot above shows the distribution of coding experience in our survey responses. We can see that people mostly have intermediate level of experience although the number of novice programmers is also quite high.
+
+```{r, fig.align='center'}
+responses %>% 
+  ggplot() +
+  geom_bar(aes(x = preference,fill = preference), alpha = 0.7) +
+  facet_wrap(~experience) + theme_bw() +
+  scale_fill_manual(name = "Choice of languge", values = plot_colors) +
+   ggtitle("Facet plot for Years of Coding Experience") + xlab("Years of Coding Experience") + ylab("Count") +
+  theme(plot.title = element_text(hjust = 0.5, size=16))
+```
+
+The visualization above is decoding the relationship between the number of years of coding experience and the choice between R and Python. We see Python was the clear choice for intermediate programmers, but the choice does not seem to clear-cut in the other categories. In all categories, Python is preferred more just by looking at the numbers.
+
+### Attitude Towards Coding
+
+We thought that the user's outlook towards coding could be a confounder as Python is a general purpose programming language and it can be used in various areas, and its application is not limited to Data Science/Statistics whereas R is a statistical programming language and is mainly used only in the fields of Data Science and Statistics.
+
+```{r, fig.align='center'}
+#Attitude Towards 
+pie_plot(responses[,c(3,5)], 3, plot_title, colnames(responses[,3]))
+```
+
+On the pie chart above, we can clearly see the majority of people love coding from the respondents. Now we tried to see what can be the relationship between R and Python. We can see respondents who loved coding preferred Python, and for the people who didn't like coding their preferred language is R.
+
+```{r, fig.align='center'}
+responses %>% 
+  ggplot() +
+  geom_bar(aes(x = preference, fill = preference), alpha = 0.7) +
+  facet_wrap(~attitude) + theme_bw() +
+  scale_fill_manual(name = "Choice of languge", values = plot_colors) +
+   ggtitle("Facet Plot for Attitude Towards Coding") + xlab("Choice of language") + ylab("Count") +
+  theme(plot.title = element_text(hjust = 0.5, size=16))
+```
+
+
+### First Programming Language
+
+We thought that a person's first programming language would be very influential as it dictates their style of coding and will also be a deciding factor in what they seek for in other languages. Some of the languages, listed above are more closely related to Python whereas some others are more related to R.
+
+```{r, fig.align='center'}
+#First Programming Language
+#proportion_plot(responses[,c(4,5)], 4, plot_title, colnames(responses[,4]))
+bar_plot(responses[,c(4,5)], 4, plot_title, colnames(responses[,4]), flip = FALSE)
+```
+
+
+### Number of Languages Actively Used 
+
+The number of programming languages a person actively uses could be a deciding factor as it can dictate how comfortable the user is in using different syntaxes and will also be indicative of how flexible the user.
+
+```{r, fig.align='center'}
+#Number of Languages Actively Being Used
+#proportion_plot(responses[,c(6,5)], 6, plot_title, colnames(responses[,7]))
+bar_plot(responses[,c(7,5)], 7, plot_title, colnames(responses[,7]), flip = FALSE)
+```
+
+This graph depict the results to our question "How many programming languages do you use actively?".  Maximum number of respondents stated that they use two languages. Majority of people who use three languages actively list Python as their preferred language. However, based on the results in other categories, this variable does not seem to be a confounding for the preference of Python and R.
+
+# Conclusion 
+
+After looking at the plots above, we conclude that our data appears to be promising for further analysis for our final analysis where we will analyze whether a person's favorite data science task creates a meaningful affect in their choice between using R and using Python. It appears that some of the variables such as academic background and the first programming language are in fact confounders as we had anticipated. Therefore, our analysis will take these into consideration.  
 
 
 
