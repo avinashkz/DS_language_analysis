@@ -15,6 +15,7 @@ knitr::opts_chunk$set(echo = FALSE)
 source('get_plots.R')
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(cowplot))
+suppressPackageStartupMessages(library(ggalluvial))
 ```
 
 
@@ -90,5 +91,23 @@ responses %>%
 #Number of Languages Actively Being Used
 #proportion_plot(responses[,c(6,5)], 6, plot_title, colnames(responses[,7]))
 bar_plot(responses[,c(7,5)], 7, plot_title, colnames(responses[,7]), flip = FALSE)
+```
+
+
+
+```{r}
+
+grouped_df <- responses %>% group_by(background, preference, task) %>% summarise(count = n())
+
+ggplot(grouped_df,
+       aes(weight = count,
+           axis1 = task, axis2 = background, axis3 = preference)) +
+  geom_alluvium(aes(fill = task),
+                width = 0) +
+  guides(fill = FALSE) +
+  geom_stratum(reverse = FALSE, alpha = 0.7) +
+  geom_text(stat = "stratum", label.strata = TRUE, reverse = FALSE, size = 3) +
+  scale_x_continuous(breaks = 1:3, labels = c("Preferred Task", "Background", "Language")) +
+  ggtitle("Alluvial Plot for Language Preference") + theme(axis.text.y = element_blank()) + theme_void()
 ```
 

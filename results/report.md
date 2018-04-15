@@ -31,3 +31,14 @@ output:
 
 ![](../results/report_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
 
+
+
+
+```
+## Missing alluvia for some stratum combinations.
+## Missing alluvia for some stratum combinations.
+## Missing alluvia for some stratum combinations.
+```
+
+![](../results/report_files/figure-html/unnamed-chunk-10-1.png)<!-- -->
+
