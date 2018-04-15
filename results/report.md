@@ -14,20 +14,20 @@ output:
 
 
 
-![](/Users/avinash/Documents/MDS/block6/dsci554/DS_language_analysis/results/report_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
+![](results/report_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
 
-![](/Users/avinash/Documents/MDS/block6/dsci554/DS_language_analysis/results/report_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
+![](results/report_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
 
-![](/Users/avinash/Documents/MDS/block6/dsci554/DS_language_analysis/results/report_files/figure-html/unnamed-chunk-5-1.png)<!-- -->![](/Users/avinash/Documents/MDS/block6/dsci554/DS_language_analysis/results/report_files/figure-html/unnamed-chunk-5-2.png)<!-- -->
-
-
-![](/Users/avinash/Documents/MDS/block6/dsci554/DS_language_analysis/results/report_files/figure-html/unnamed-chunk-6-1.png)<!-- -->![](/Users/avinash/Documents/MDS/block6/dsci554/DS_language_analysis/results/report_files/figure-html/unnamed-chunk-6-2.png)<!-- -->
-
-![](/Users/avinash/Documents/MDS/block6/dsci554/DS_language_analysis/results/report_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
+![](results/report_files/figure-html/unnamed-chunk-5-1.png)<!-- -->![](results/report_files/figure-html/unnamed-chunk-5-2.png)<!-- -->
 
 
-![](/Users/avinash/Documents/MDS/block6/dsci554/DS_language_analysis/results/report_files/figure-html/unnamed-chunk-8-1.png)<!-- -->![](/Users/avinash/Documents/MDS/block6/dsci554/DS_language_analysis/results/report_files/figure-html/unnamed-chunk-8-2.png)<!-- -->
+![](results/report_files/figure-html/unnamed-chunk-6-1.png)<!-- -->![](results/report_files/figure-html/unnamed-chunk-6-2.png)<!-- -->
+
+![](results/report_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
 
 
-![](/Users/avinash/Documents/MDS/block6/dsci554/DS_language_analysis/results/report_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
+![](results/report_files/figure-html/unnamed-chunk-8-1.png)<!-- -->![](results/report_files/figure-html/unnamed-chunk-8-2.png)<!-- -->
+
+
+![](results/report_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
 
