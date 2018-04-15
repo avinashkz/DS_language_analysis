@@ -1,0 +1,94 @@
+---
+title: "Report"
+author: "Ozum, Prash, Avinash"
+date: '2018-04-14'
+output: 
+  html_document:
+    keep_md: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r}
+source('get_plots.R')
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(cowplot))
+```
+
+
+```{r}
+responses <- read.csv(file = "../docs/survey_results_clean.csv")
+plot_title <- c("Academic Background", "Years of Coding Experience", "Attitude Towards Coding", "First Programming Language", 
+                  "R or Python", "Preferred Data Science Task", "Number of Languages Actively Being Used")
+
+plot_colors <- c("red", "blue4")
+```
+
+```{r}
+#R or Python !!
+pie_plot(responses[,c(5,5)], 5, plot_title, colnames(responses[,5]))
+```
+
+```{r}
+#Academic Background
+#proportion_plot(responses[,c(1,5)], 1, plot_title, colnames(responses[,1]))
+bar_plot(responses[,c(1,5)], 1, plot_title, colnames(responses[,1]))
+```
+
+```{r}
+#Years of Coding Experience
+pie_plot(responses[,c(2,5)], 2, plot_title, colnames(responses[,2]))
+
+responses %>% 
+  ggplot() +
+  geom_bar(aes(x = preference,fill = preference), alpha = 0.7) +
+  facet_wrap(~experience) + theme_bw() +
+  scale_fill_manual(name = "Choice of languge", values = plot_colors) +
+   ggtitle("Facet plot for Years of Coding Experience") + xlab("Years of Coding Experience") + ylab("Count") +
+  theme(plot.title = element_text(hjust = 0.5, size=16))
+
+```
+
+
+```{r}
+#Attitude Towards 
+pie_plot(responses[,c(3,5)], 3, plot_title, colnames(responses[,3]))
+
+responses %>% 
+  ggplot() +
+  geom_bar(aes(x = preference, fill = preference), alpha = 0.7) +
+  facet_wrap(~attitude) + theme_bw() +
+  scale_fill_manual(name = "Choice of languge", values = plot_colors) +
+   ggtitle("Facet Plot for Attitude Towards Coding") + xlab("Choice of language") + ylab("Count") +
+  theme(plot.title = element_text(hjust = 0.5, size=16))
+```
+
+```{r}
+#First Programming Language
+#proportion_plot(responses[,c(4,5)], 4, plot_title, colnames(responses[,4]))
+bar_plot(responses[,c(4,5)], 4, plot_title, colnames(responses[,4]), flip = FALSE)
+```
+
+
+```{r}
+#Preferred Data Science Task
+pie_plot(responses[,c(6,5)], 6, plot_title, colnames(responses[,6]))
+
+responses %>% 
+  ggplot() +
+  geom_bar(aes(x = preference,fill = preference), alpha = 0.7) +
+  facet_wrap(~task) + theme_bw() +
+  scale_fill_manual(name = "Choice of languge", values = plot_colors) +
+   ggtitle("Facet Plot for Preferred Data Science Task") + xlab("Choice of language") + ylab("Count") +
+  theme(plot.title = element_text(hjust = 0.5,size=16))
+```
+
+
+```{r}
+#Number of Languages Actively Being Used
+#proportion_plot(responses[,c(6,5)], 6, plot_title, colnames(responses[,7]))
+bar_plot(responses[,c(7,5)], 7, plot_title, colnames(responses[,7]), flip = FALSE)
+```
+
