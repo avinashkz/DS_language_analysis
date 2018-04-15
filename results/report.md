@@ -14,17 +14,17 @@ output:
 
 
 
-####Introduction 
+#### Introduction 
 
 In continuation of the proposal, we submitted a team last week. We created the survey to capture from the users, so as we can analyze that data collected. We used Survey Monkey as n this data analysis project, we aim to understand how the choice of programming language is affected by the preference of a data science task.We successfully rolled out the survey to people in MDS and elsewhere our main Aim was to get answers to the answers t
  Our main Aim through the survey was to find out answer choice of programming language is affected by the preference of a data science task.
 
-####Methodology 
+#### Methodology 
 
 We created the survey using Google forms since the data is hosted in the US. Users were required to provide their consent to proceed. The survey had 7 easy to follow the question. We succfully rolled out this survey and were managed to get `85 +` responses. The audience targeted were specifically from data science community. Initially, the survey was given to current MDS cohort, faculty and TA's. Then the survey was shared on the various data science channel, wats app groups, and LinkedIn groups. 
 
 
-####Wrangling 
+#### Wrangling 
 
 Data was collected, for analysis and EDA. Data wrangling was done majority to get capture academic background information. The first question `What is your academic background? `  had two options computer science, math-stats and others.  Surprisingly `others` which comprised a lot of option made the second highest in terms of share. We decided to narrow down the option. We narrowed subclassified `others` from survey to (`Engineering`, `Business / Economics`) and rest put everything to `others`.Option for first programming language also was wrangled and all other options were clubbed together. 
 
@@ -39,9 +39,9 @@ ifelse(sum((str_detect(tolower(background), c("economics", "business", "finance"
   mutate(first = ifelse(first %in% c("Python", "R", "Matlab", "SAS", "C", "Java"), first, "Other"))
 ```
 
-####EDA Plot 
+#### EDA Plot 
 
-#####Plot 1 
+##### Plot 1 
 
 ![](report_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
 
@@ -49,7 +49,7 @@ ifelse(sum((str_detect(tolower(background), c("economics", "business", "finance"
 This is the first graph represents the basic split of the language preference of no of users. The users are primarily people from data science community prefer python and that was not a surprise. 
 
 
-#####Plot 2
+##### Plot 2
 
 ![](report_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
 
@@ -58,7 +58,7 @@ Bar plot captures the information pertaining to the academic background which is
 
 
 
-#####Plot 3 and Plot 4 
+##### Plot 3 and Plot 4 
 
 
 ![](report_files/figure-html/unnamed-chunk-6-1.png)<!-- -->![](report_files/figure-html/unnamed-chunk-6-2.png)<!-- -->
@@ -70,14 +70,14 @@ One of the questions that were addressed in the survey was no of years coding ex
 
 
 
-#####Plot 5 and Plot 6 
+##### Plot 5 and Plot 6 
 
 
 ![](report_files/figure-html/unnamed-chunk-7-1.png)<!-- -->![](report_files/figure-html/unnamed-chunk-7-2.png)<!-- -->
 
 Plots above we  tried visualizing the question ` Do you enjoy/love coding?`. The first graph pie chart, we can clearly see the majority of people love coding from the respondents. Now we tried to see what can be the relationship between `R and python`. We can see respondents who loved coding their preferred language was python, and for the people who didn't like coding their preferred language is R. There shows python is a preferred language than R for data science professionals. 
 
-#####Plot 7
+##### Plot 7
 
 ![](report_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
 
@@ -87,7 +87,7 @@ We asked respondents about their first programming language and seeing their tra
 
 
 
-#####Plot 8 and Plot 9
+##### Plot 8 and Plot 9
 ![](report_files/figure-html/unnamed-chunk-9-1.png)<!-- -->![](report_files/figure-html/unnamed-chunk-9-2.png)<!-- -->
 
 
@@ -98,7 +98,7 @@ Plots above, tried addressing what is your favorite Data science task. `Data Wra
 
 
 
-### Plot 10 
+#### Plot 10 
 ![](report_files/figure-html/unnamed-chunk-10-1.png)<!-- -->
 
 
@@ -106,13 +106,13 @@ This graph tried addressing `How many programming languages do you use actively?
 
 
 
-### Plot 11
+#### Plot 11
 ![](report_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
 
 
 If we look at graph above it shows the relationship between the tasks `Data Viz , Data Wrangling and Machine Learning` and the preferred languages `Python and R`.
 
-#####Conclusion 
+#### Conclusion 
 
 After looking at the plots above, data appears to be promising for further analysis for final milestone. It appears some of the variables are confounders. 
 
