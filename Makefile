@@ -21,7 +21,7 @@ eda: clean_data
 
 #To create the report.
 report: eda
-	Rscript -e 'rmarkdown::render("src/eda.Rmd", output_dir = "results")'
+	Rscript -e 'rmarkdown::render("src/report.Rmd", output_dir = "results")'
 
 #To delete all the files created.
 #remove:	clean
