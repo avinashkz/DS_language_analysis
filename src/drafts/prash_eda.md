@@ -10,7 +10,7 @@ library(stringr)
 ```
 
 ``` r
-survey <- read_csv("../data/survey_responses_latest.csv")
+survey <- read_csv("../../data/survey_responses.csv")
 ```
 
 ``` r
@@ -123,3 +123,39 @@ survey_analysis %>%
 ```
 
 ![](prash_eda_files/figure-markdown_github/unnamed-chunk-9-1.png)
+
+``` r
+survey_analysis %>% 
+  ggplot() +
+  geom_bar(aes(x = preferprog,fill = preferprog)) +
+  facet_wrap(~dstask)+theme_bw()+
+  scale_fill_discrete(name = "Choice of languge")+
+   ggtitle("Data Science Task ")+xlab("Choice of language") + ylab("Count")+
+  theme(plot.title = element_text(hjust = 0.5,face="bold",size=16))
+```
+
+![](prash_eda_files/figure-markdown_github/unnamed-chunk-10-1.png)
+
+``` r
+survey_analysis %>% 
+  ggplot() +
+  geom_bar(aes(x = preferprog,fill = preferprog)) +
+  facet_wrap(~codingexp)+theme_bw()+
+  scale_fill_discrete(name = "Choice of languge")+
+   ggtitle("Data Science Task ")+xlab("Choice of language") + ylab("Count")+
+  theme(plot.title = element_text(hjust = 0.5,face="bold",size=16))
+```
+
+![](prash_eda_files/figure-markdown_github/unnamed-chunk-11-1.png)
+
+``` r
+survey_analysis %>% 
+  ggplot() +
+  geom_bar(aes(x = preferprog,fill = preferprog)) +
+  facet_wrap(~lovecoding)+theme_bw()+
+  scale_fill_discrete(name = "Choice of languge")+
+   ggtitle("Data Science Task ")+xlab("Choice of language") + ylab("Count")+
+  theme(plot.title = element_text(hjust = 0.5,face="bold",size=16))
+```
+
+![](prash_eda_files/figure-markdown_github/unnamed-chunk-12-1.png)
