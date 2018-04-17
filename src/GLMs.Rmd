@@ -1,0 +1,82 @@
+---
+title: "Data Science Language Analysis"
+subtitle: <h1><u>EDA Report</u></h1>
+author: 
+  - "Nazli Ozum Kafaee"
+  - "Prash Medirattaa"
+  - "Avinash Prabhakaran"
+date: '2018-04-15'
+output:
+  html_document:
+    keep_md: yes
+    toc: true
+    toc_float: true
+    theme: united
+    highlight: tango
+    
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r}
+#Loading the required packages
+suppressPackageStartupMessages(library(tidyverse))
+```
+
+```{r}
+#Reading in processed data. 
+responses <- read.csv(file = "docs/survey_results_clean.csv")
+```
+
+
+```{r}
+#Binary encoding the response variable. Python -> 1; R -> 0 
+data <- responses %>% mutate(binary = if_else(preference == "Python", 1, 0))
+
+#Fitting a GLM without any confounding variables.
+mod <- glm(binary ~ task, data = data)
+summary(mod)
+```
+
+
+```{r}
+#Fitting GLM with all the confounding variables.
+responses %>% colnames()
+
+mod <- glm(binary ~ task + background + experience + attitude + first + active, data = data)
+summary(mod)
+
+#Model with only first language or background
+mod <- glm(binary ~ task + first + background, data = data_all)
+summary(mod)
+```
+
+```{r}
+
+model <- glm(binary ~ task + first, data = data)
+summary(model)
+
+#Adjusting for p-values.(Not required anymore after chat with Tiffany)
+#p.vals <- summary(model)$coef[,4]
+#p.adjust(p.vals ,method = "BH") < 0.05
+
+
+```
+
+```{r}
+
+#Releveling the reference task from Data Viz -> Machine Learning
+#Releveling the reference first language from C -> R
+data_relevel <- data
+data_relevel$task <-relevel(data$task,ref="Machine Learning")
+data_relevel$first <-relevel(data$first,ref="R")
+
+model <- glm(binary ~ task + first, data = data_relevel)
+summary(model)
+
+```
+
