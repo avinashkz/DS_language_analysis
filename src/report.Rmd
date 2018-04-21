@@ -52,7 +52,7 @@ We had to do some initial wrangling to prepare the data collected for explorator
 
 We were faced with a similar issue in one of our following questions. When we asked the respondents which programming language they learned first, we gave them six main options to choose from and an "Other" option to fill in if necessary. Again, they could freely type the name of their first programming language if it was not one of the predetermined languages listed by us. We observed that the "Other" option comprised of varying languages but each answer held one or two people and none of the languages that we had not listed represented a major group of people. Therefore, we aggregated all answers in "Other" and kept them together.
 
-Our code for the data cleaning process described above can be found [here]("src/clean_data.R").
+Our code for the data cleaning process described above can be found [here]("clean_data.R").
 
 ```{r, eval=FALSE}
 survey <- survey %>% 
