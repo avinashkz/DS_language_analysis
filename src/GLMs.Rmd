@@ -165,6 +165,15 @@ summary(model)
 #p.adjust(p.vals ,method = "BH") < 0.05
 ```
 
+
+```{r}
+#https://stackoverflow.com/questions/11767602/backward-elimination-in-r?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+mod <- glm(binary ~ task + background + experience + attitude + first + active, data = data)
+be_mod <- step(mod, direction = "both", trace=FALSE)
+summary(be_mod)
+```
+
+
 ```
 #Not Required to Relevel the confounders.
 #Releveling the reference task from Data Viz -> Machine Learning
