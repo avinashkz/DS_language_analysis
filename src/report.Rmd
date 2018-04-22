@@ -1,19 +1,14 @@
 ---
 title: "Data Science Language Analysis"
-subtitle: <h1><u>EDA Report</u></h1>
-author: 
-  - "Nazli Ozum Kafaee"
-  - "Prash Medirattaa"
-  - "Avinash Prabhakaran"
+author:
+- Nazli Ozum Kafaee
+- Prash Medirattaa
+- Avinash Prabhakaran
 date: '2018-04-15'
 output:
-  html_document:
-    keep_md: yes
-    toc: true
-    toc_float: true
-    theme: united
-    highlight: tango
-    
+  pdf_document:
+    toc: yes
+subtitle: <h1><u>EDA Report</u></h1>
 ---
 
 ```{r setup, include=FALSE}
@@ -35,6 +30,8 @@ plot_title <- c("Academic Background", "Years of Coding Experience", "User Who L
 
 plot_colors <- c("red", "blue4")
 ```
+
+\newpage
 
 # Introduction 
 
@@ -73,7 +70,7 @@ The plot below represents the basic split of the language preference with the nu
 
 ```{r, fig.align='center'}
 #R or Python !!
-pie_plot(responses[,c(5,5)], 5, plot_title, colnames(responses[,5]))
+pie_chart(responses[,c(5,5)], plot_title[5])
 ```
 
 Even though there is not an even distribution, we can say that we have collected a good number of responses from people preferring either of the languages.
@@ -84,7 +81,16 @@ The plot below shows the split of the people with a different choice for their f
 
 ```{r, fig.align='center'}
 #Preferred Data Science Task
-pie_plot(responses[,c(6,5)], 6, plot_title, colnames(responses[,6]))
+#old
+#pie_chart(responses[,c(6,5)], plot_title[6])
+
+t <- bar_plot(responses[,c(6,5)], plot_title[7]) +
+  scale_x_discrete(labels=c("Machine Learning" = "M", "Data visualization" = "V",
+                              "Data wrangling" = "W")) + 
+  theme(axis.text.x = element_text(angle=0, vjust=0.5, size = 12))
+
+ggdraw(add_sub(t, "M: Machine Learning, V: Data visualization, W: Data wrangling", size = 12))
+
 ```
 
 Of course, our main aim is to relate these tasks to which programming language people prefer more. For Machine learning, Python is the preferred language, but for Data visualization, R seems to be the preferred language. Both these results are not surprising given our initial expectations. However, interestingly for wrangling Python and R were equally preferred. Our initial hypothesis was to see R preferred more when it came to data wrangling. 
@@ -109,13 +115,22 @@ We had thought that the academic background would be a confounding variable as p
 
 ```{r, fig.align='center'}
 #Academic Background
-#proportion_plot(responses[,c(1,5)], 1, plot_title, colnames(responses[,1]))
-bar_plot(responses[,c(1,5)], 1, plot_title, colnames(responses[,1]))
+#bar_plot(responses[,c(1,5)], plot_title[1])
+
+b <- bar_plot(responses[,c(1,5)], plot_title[1]) +
+  scale_x_discrete(labels=c("Computer Science / Computer Engineering" = "CS/CE", "Other" = "O",
+                              "Mathematics / Statistics" = "M/S", 
+                            "Business / Economics" = "B/E", 
+                            "Engineering" = "E")) + 
+  theme(axis.text.x = element_text(angle=0, vjust=0.5, size = 12))
+
+ggdraw(add_sub(b, "CS/CE: Computer Science/Computer Engineering, O: Other, \n M/S: Mathematics/Statistics, B/E: Business/Economics, \n E: Engineering", size = 12))
+
 ```
 
 In our survey, we captured 85 responses in total. The maximum number of respondents were computer science or computer engineering graduates closely followed by mathematics and statistics graduates. As we can see above, our initial hypothesis about computer graduates leaning more towards python seems to be relevant. However, there did not seem to be a significant difference in the preference between Python and R given other academic backgrounds. 
 
-```{r, message=FALSE, warning=FALSE, fig.align='center'}
+```{r alluvial, message=FALSE, warning=FALSE, fig.align='center'}
 grouped_df <- responses %>% group_by(background, preference, task) %>% summarise(count = n())
 
 ggplot(grouped_df,
@@ -131,7 +146,7 @@ ggplot(grouped_df,
   theme(plot.title = element_text(hjust = 0.5,size=16))
 ```
 
-The graph above shows the relationship between the tasks `Data Viz` , `Data Wrangling` and `Machine Learning` and the preferred languages `Python` and `R`.
+The graph above shows the relationship between the tasks `Data Viz` , `Data Wrangling` and `Machine Learning` and the preferred languages `Python` and `R`. 
 
 ### Coding Experience 
 
@@ -139,7 +154,7 @@ We had the belief that the years of coding experience could be a confounder as i
 
 ```{r, fig.align='center'}
 #Years of Coding Experience
-pie_plot(responses[,c(2,5)], 2, plot_title, colnames(responses[,2]))
+pie_chart(responses[,c(2,5)], plot_title[2])
 ```
 
 The plot above shows the distribution of coding experience in our survey responses. We can see that people mostly have an intermediate level of experience although the number of novice programmers is also quite high.
@@ -162,7 +177,7 @@ We thought that the user's outlook towards coding, i.e., love/enjoy coding could
 
 ```{r, fig.align='center'}
 #Attitude Towards 
-pie_plot(responses[,c(3,5)], 3, plot_title, colnames(responses[,3]))
+pie_chart(responses[,c(3,5)], plot_title[3])
 ```
 
 On the pie chart above, we can see the majority of people love coding from the respondents. Now we tried to see what can be the relationship between R and Python. We can see respondents who loved coding preferred Python, and for the people who didn't like coding their preferred language is R.
@@ -185,7 +200,7 @@ We thought that a person's first programming language would be very influential 
 ```{r, fig.align='center'}
 #First Programming Language
 #proportion_plot(responses[,c(4,5)], 4, plot_title, colnames(responses[,4]))
-bar_plot(responses[,c(4,5)], 4, plot_title, colnames(responses[,4]), flip = FALSE)
+bar_plot(responses[,c(4,5)], plot_title[4])
 ```
 
 
@@ -196,7 +211,7 @@ The number of programming languages a person actively uses could be a deciding f
 ```{r, fig.align='center'}
 #Number of Languages Actively Being Used
 #proportion_plot(responses[,c(6,5)], 6, plot_title, colnames(responses[,7]))
-bar_plot(responses[,c(7,5)], 7, plot_title, colnames(responses[,7]), flip = FALSE)
+bar_plot(responses[,c(7,5)], plot_title[7])
 ```
 
 This graph depicts the results to our question "How many programming languages do you use actively?".  The maximum number of respondents stated that they use two languages. Majority of people who use three languages actively list Python as their preferred language. However, based on the results in other categories, this variable does not seem to be a confounder for the preference of Python and R.
