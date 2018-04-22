@@ -109,6 +109,6 @@ bar_plot <- function(data, name){
     theme_bw() + theme(plot.title = element_text(hjust = 0.5, size = 12),
                        axis.text.x = element_text(angle=45, vjust=0.5, size = 12))
   
-    return(p)
+  return(p)
 }
 
