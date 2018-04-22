@@ -162,6 +162,10 @@ p2
 
 # Statistical Analysis
 
+Modeling `preferred datascience language` using a binary logit model and that the probability that of python = 1 is being modeled.
+
+As part of our study, we tried various models.
+
 ```{r, echo=FALSE}
 #Binary encoding the response variable. Python -> 1; R -> 0 
 data <- responses %>% mutate(preference = if_else(preference == "Python", 1, 0))
@@ -236,6 +240,7 @@ final <- final %>% mutate(`odds-ratio` = exp(estimate), lowerCI = exp(estimate -
 ```{r, echo=FALSE}
 broom::tidy(model_level) %>% kable()
 ```
+
 ```{r, echo=FALSE}
 model.2 <- glm(preference ~ task + background + experience + attitude + first + active, data = data, family = binomial(link = 'logit'))
 ```
@@ -251,31 +256,51 @@ sw_model <- step(model.2, direction = "both", trace=FALSE)
 
 
 ```{r}
-kable(bind_cols(model = c("preference ~ task", "preference ~ task + background + experience + attitude + first + active", "preference ~ task + background + experience + first + active", "preference ~ task + background + first + active", "preference ~ task + background + first", "preference ~ task + background + active", "preference ~ task + first + active"), AIC = c(93.555, 90.394, 88.42, 86.694, 90.428, 90.411, 89.657)))
+kable(bind_cols(Sno =c("1","2","3","4","5","6","7"),Models = c("preference ~ task", "preference ~ task + background + experience + attitude + first + active", "preference ~ task + background + experience + first + active", "preference ~ task + background + first + active", "preference ~ task + background + first", "preference ~ task + background + active", "preference ~ task + first + active"), AIC = c(93.555, 90.394, 88.42, 86.694, 90.428, 90.411, 89.657)))
 ```
 
+The complete analysis can be found in [analysis.pdf](analysis.Rmd) in this repository. Some of the main models along with variables can be be found above with their respective `AIC` scores. 
+
+We did manual backward selection as we wanted to ensure the `task` variable to be present in the final model. Selection criteria used was  `AIC`  being `86.694`. Just as an extra step we did stepwise methodolgy to vaildate the results. 
 
 
 
+```{r}
+summary(model_level)
+```
 
-
-
-
-# Results
+# Results 
+ 
 
 ```{r, echo = FALSE}
 kable(final)
 ```
+# Final Model 
+
+$logit(p) = log(\frac{p}{1-p}) = \beta_0 + \beta_1 * \text{task} + \beta_2 * \text{background} + \beta_3 * \text{first} + \beta_4 * \text{active}$
+
+We can say these things about the above  fitted model in terms of odds ratio. 
+
+- People whose favorite task is Data Wrangling are 8.3  times more likely to select Python as their favorite language compared to people whose favorite task is Data Visualization.
+
+- People whose favorite task is Machine Learning  are 61  times more likely to select Python as their favorite language compared to people whose favorite task is Data Visualization.
+
+- People whose favourite task is Machine Learning are 5.8 times more likely to prefer Python as their favourite language compared to people whose favorite task is Data Wrangling
+
+
+# Assumptions 
+
+- In our study there are three confunding variable(Academic background,first programming language and number of languages used actively).
+
+- No interactions was there between expalanatory variables and the confunding variables in the model.
+
+- There is also no interaction between the confounding variables themselves.
+
 
 ```{r, echo=FALSE, eval=FALSE}
 1/0.1736306
 ```
 
-The people whose favorite task is Data Wrangling are 2.4 times more likely to select Python as their favorite language compared to people whose favorite task is Data Visualization.
-
-The people whose favorite task is Machine Learning are 13.9 times more likely to select Python as their favorite language compared to people whose favorite task is Data Visualization.
-
-People whose favourite task is Data Wrangling are 5.8 times more likely to prefer R as their favourite language compared to people whose favorite task is Machine Learning.
 
 ```{r, fig.align='center', echo=FALSE}
 
@@ -299,4 +324,7 @@ final %>% ggplot(aes(comparison, `odds-ratio`, color = reference)) +
 
 
 # Conclusion
+
+
+
 
