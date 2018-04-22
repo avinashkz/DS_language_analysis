@@ -83,6 +83,10 @@ For the statistical analysis, we are planning to use Generalized Linear Model(GL
 `make remove`: To delete all plots, rendered documents, wrangled data as well as the raw data.
 
 
+## How to run the tests
+
+`Rscript tests/tests.R`: To run all the tests
+
 ## UBC Office Of Research Ethics Guidelines Pertaining To Our Survey
 
 
@@ -93,6 +97,7 @@ For the statistical analysis, we are planning to use Generalized Linear Model(GL
 *  As a part of our survey, we assure no personal information will be collected during the survey study like (Student no, Name). To avoid directly identifying the respondents
 
 * As a part of our survey, we will ensure individual identity will be protected as per UBC and FIPP research guidelines
+
 
 
 ## Authors: 
