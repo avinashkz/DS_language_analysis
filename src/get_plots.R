@@ -105,7 +105,6 @@ bar_plot <- function(data, name){
                  y = count, fill = Class), alpha = 0.7, color = "black") +
     xlab("") + 
     labs(title = paste(name), y = "Count") +
-    scale_fill_manual(values = plot_colors) +
     theme_bw() + theme(plot.title = element_text(hjust = 0.5, size = 12),
                        axis.text.x = element_text(angle=45, vjust=0.5, size = 12))
   
