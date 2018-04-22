@@ -178,9 +178,9 @@ data <- data %>%
 
 data$background <- as.factor(data$background)
 
-#Releveling the reference task from Data Viz -> Machine Learning
+#Releveling the reference task from Data Viz -> Data Wrangling
 data_relevel <- data
-data_relevel$task <-relevel(data$task,ref="Machine Learning")
+data_relevel$task <-relevel(data$task, ref="Data wrangling")
 ```
 
 
@@ -219,7 +219,7 @@ rebase <- data_level[c(2,3),]
 comb <- bind_rows(base, rebase)
 
 #Adding the reference
-comb$reference <- c(rep("Data visualization", 2), rep("Machine learning", 2))
+comb$reference <- c(rep("Data visualization", 2), rep("Data wrangling", 2))
 
 #Extracting the comparison variable
 comb <- comb %>% mutate(comparison = sub("task", "", term))
@@ -266,11 +266,9 @@ kable(bind_cols(model = c("preference ~ task", "preference ~ task + background +
 # Results
 
 ```{r, echo = FALSE}
-kable(final)
-```
+names(final) <- c("Comparison", "Reference", "Estimate", "Std.Error", "p.value", "Odds-Ratio", "LowerCI", "UpperCI")
 
-```{r, echo=FALSE, eval=FALSE}
-1/0.1736306
+kable(final)
 ```
 
 The people whose favorite task is Data Wrangling are 2.4 times more likely to select Python as their favorite language compared to people whose favorite task is Data Visualization.
@@ -281,22 +279,18 @@ People whose favourite task is Machine Learning are 5.8 times more likely to pre
 
 ```{r, fig.align='center', echo=FALSE}
 
-final$reference <- c("dviz", "dviz", "ml")
-labels <- c(dviz = "Reference - Data Visualization", ml = "Reference - Machine Learning")
+final$Reference <- c("dviz", "dviz", "ml")
+labels <- c(dviz = "Reference - Data Visualization", ml = "Reference - Data Wrangling")
 
-final %>% ggplot(aes(comparison, `odds-ratio`, color = reference)) +
-  geom_point(size = 3) + geom_errorbar(aes(ymin = lowerCI, ymax = upperCI, color = reference), width = 0.4) +
+final %>% ggplot(aes(Comparison, `Odds-Ratio`, color = Reference)) +
+  geom_point(size = 3) + geom_errorbar(aes(ymin = LowerCI, ymax = UpperCI, color = Reference), width = 0.4) +
   scale_y_log10(limits = c(NA,6000)) +
-  geom_text(aes(label = round(lowerCI,2), y = lowerCI), vjust = 1.25) +
-  geom_text(aes(label = round(upperCI,2), y = upperCI), vjust = -.25) +
-  facet_wrap(~reference, labeller = labeller(reference = labels)) +
-  labs(title = "Confidence Interval For Odds-Ratio", y = "Odds-Ratio", x = "Comparison") +
-  theme(plot.title = element_text(hjust = 0.5, size = 12),
-        legend.justification=c(1.1,1.2), legend.position=c(1,1),
-        legend.background = element_rect(fill="gray90", size=.5, linetype="dotted")) +
-  scale_color_discrete("Reference", breaks = c("dviz", "ml"), labels = c("Data Visualization", "Machine Learning"))
-
-
+  geom_text(aes(label = round(LowerCI,2), y = LowerCI), vjust = 1.25) +
+  geom_text(aes(label = round(UpperCI,2), y = UpperCI), vjust = -.25) +
+  facet_wrap(~Reference, labeller = labeller(Reference = labels)) +
+  labs(title = "Confidence Interval For Odds-Ratio", y = "Odds-ratio in log-scale", x = "Comparison") +
+  theme(plot.title = element_text(hjust = 0.5, size = 12)) + guides(color = FALSE) +
+  scale_color_discrete("Reference", breaks = c("dviz", "ml"), labels = c("Data Visualization", "Data Wrangling"))
 ```
 
 
