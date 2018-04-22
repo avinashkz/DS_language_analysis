@@ -18,12 +18,10 @@ knitr::opts_chunk$set(echo = TRUE)
 source('get_plots.R')
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(cowplot))
+suppressPackageStartupMessages(library(knitr))
+suppressPackageStartupMessages(library(broom))
 
 responses <- read.csv(file = "../docs/survey_results_clean.csv")
-plot_title <- c("Academic Background", "Years of Coding Experience", "User Who Love/Enjoy Coding", "First Programming Language", 
-                  "R or Python", "Preferred Data Science Task", "Number of Languages Actively Being Used")
-
-#plot_colors <- c("red", "blue4")
 ```
 
 # Introduction
@@ -73,7 +71,7 @@ Our survey can be accessed fully [here](https://goo.gl/forms/zdl0VlHK2NwAfflE3).
 
 ## Analysis Methods
 
-The data collected as a result of our survey was downloaded as a `csv` file and imported into R for analysis. All data wrangling and visualization were done in the R computing environment. The code chunks that download data, apply wrangling and create plots can be found in [read_data.R](./read_data.R), [clean_data.R](./clean_data.R) and [get_plots.R](./get_plots.R), respectively.
+The data collected as a result of our survey was downloaded as a `csv` file and imported into R for analysis. All data wrangling and visualization were done in the R computing environment. The code chunks that download data, apply wrangling and create plots can be found in [read_data.R](read_data.R), [clean_data.R](clean_data.R) and [get_plots.R](get_plots.R), respectively.
 
 # Exploratory Data Analysis
 
@@ -88,41 +86,29 @@ We were faced with a similar issue in one of our following questions. When we as
 **Explanations to be made**
 
 ```{r, echo=FALSE}
+
+plot_title <- c("Academic Background", "Coding Experience", "User Who Love/Enjoy Coding", "First Programming Language", 
+                  "R or Python", "Preferred Data Science Task", "Number of Languages actively Used")
+
 #Academic Background
 #proportion_plot(responses[,c(1,5)], 1, plot_title, colnames(responses[,1]))
-b <- bar_plot(responses[,c(1,5)], 1, plot_title, colnames(responses[,1]))
+b <- bar_plot(responses[,c(1,5)], plot_title[1])
 
 #Coding experience
 #proportion_plot(responses[,c(4,5)], 4, plot_title, colnames(responses[,4]))
-ce <- bar_plot(responses[,c(2,5)], 2, plot_title, colnames(responses[,2]), flip = FALSE) + 
-  ggtitle("Coding Experience") +
-    theme(axis.text.x = element_text(angle=45, vjust=0.5), 
-          plot.title = element_text(hjust = 0, size = 12)) +
-  xlab("")
+ce <- bar_plot(responses[,c(2,5)], plot_title[2])
 
 #Attitude towards coding
 #proportion_plot(responses[,c(4,5)], 4, plot_title, colnames(responses[,4]))
-ca <- bar_plot(responses[,c(3,5)], 3, plot_title, colnames(responses[,3]), flip = FALSE) +
-   ggtitle("Attitude towards coding") +
-    theme(axis.text.x = element_text(angle=45, vjust=0.5), 
-          plot.title = element_text(hjust = 0, size = 12)) +
-  xlab("")
+ca <- bar_plot(responses[,c(3,5)], plot_title[3])
 
 #First Programming Language
 #proportion_plot(responses[,c(4,5)], 4, plot_title, colnames(responses[,4]))
-fl <- bar_plot(responses[,c(4,5)], 4, plot_title, colnames(responses[,4]), flip = FALSE) +
-  ggtitle("First Programming Language") +
-    theme(axis.text.x = element_text(angle=45, vjust=0.5), 
-          plot.title = element_text(hjust = 0, size = 12)) +
-  xlab("")
+fl <- bar_plot(responses[,c(4,5)], plot_title[4])
 
 #Number of Languages Actively Being Used
 #proportion_plot(responses[,c(6,5)], 6, plot_title, colnames(responses[,7]))
-al <- bar_plot(responses[,c(7,5)], 7, plot_title, colnames(responses[,7]), flip = FALSE) +
-  ggtitle("Number of Languages actively Used") +
-    theme(axis.text.x = element_text(angle=45, vjust=0.5), 
-          plot.title = element_text(hjust = 0, size = 12)) +
-  xlab("")
+al <- bar_plot(responses[,c(7,5)], plot_title[7])
 
 legend <- get_legend(ce)
 
@@ -141,7 +127,6 @@ p2 <- plot_grid(fl + theme(legend.position="none"),
            )
 
 p1
-#rel_widths = c(3, .3)
 ```
 
 **Explanations to be made**
@@ -150,12 +135,56 @@ p1
 p2
 ```
 
-
 # Statistical Analysis
+
+```{r, echo=FALSE}
+#Binary encoding the response variable. Python -> 1; R -> 0 
+data <- responses %>% mutate(binary = if_else(preference == "Python", 1, 0))
+
+#Releveling the reference task from Data Viz -> Machine Learning
+data_relevel <- data
+data_relevel$task <-relevel(data$task,ref="Machine Learning")
+```
+Fitting a GLM without any confounding variables.
+```{r, eval=FALSE}
+model <- glm(binary ~ task, data = data)
+```
+
+
+
+Fitting GLM with all the confounding variables.
+
+
+
+```{r, eval = FALSE}
+model <- glm(binary ~ task + background + experience + attitude + first + active, data = data)
+```
+
+Final Model with only first language as confounder
+
+```{r}
+model <- glm(binary ~ task + first, data = data)
+```
+
+```{r, echo =FALSE}
+broom::tidy(model) %>% kable()
+```
+
+
+Releveling the data to obtain the comparison between Machine Learning and Data Wrangling.
+
+```{r}
+model <- glm(binary ~ task + first, data = data_relevel)
+```
+
+
+```{r, echo =FALSE}
+broom::tidy(model) %>% kable()
+```
 
 
 # Results
 
-# Discussion
+# Conclusion
 
 
