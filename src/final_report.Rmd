@@ -161,6 +161,13 @@ data <- responses %>% mutate(preference = if_else(preference == "Python", 1, 0))
 # data$preference <-relevel(data$preference,ref = 1)
 # data$preference <- as.numeric(data$preference)
 
+data$background <- as.character(data$background)
+data <- data %>% 
+  mutate(background = ifelse(background == "Computer Science / Computer Engineering", "Computer Sc/Eng", 
+                              ifelse(background == "Mathematics / Statistics","Maths/Stats", background)))
+
+data$background <- as.factor(data$background)
+
 #Releveling the reference task from Data Viz -> Machine Learning
 data_relevel <- data
 data_relevel$task <-relevel(data$task,ref="Machine Learning")
@@ -171,26 +178,30 @@ data_relevel$task <-relevel(data$task,ref="Machine Learning")
 ```{r, eval=FALSE}
 #Fitting a GLM without any confounding variables.
 model.1 <- glm(preference ~ task, family = binomial(link = 'logit'), data = data)
+
 #Fitting GLM with all the confounding variables.
 model.2 <- glm(preference ~ task + background + experience + attitude + first + active, 
                family = binomial(link = 'logit'), data = data)
+
 #Final Model with only first language as confounder
 model.3 <- glm(preference ~ task + first, family = binomial(link = 'logit'), data = data)
+
 #Releveling the data to obtain the comparison between Machine Learning and Data Wrangling.
 model.4 <- glm(preference ~ task + first, family = binomial(link = 'logit'), 
                data = data_relevel)
 ```
 
 
-
 ```{r, echo =FALSE}
 #w.r.t Data Viz
-model <- glm(preference ~ task + first, data = data, family = binomial(link = 'logit'))
+model <- glm(preference ~ task + background + first + active,
+             family = binomial(link = 'logit'), data = data)
 data_base <- broom::tidy(model)
 base <- data_base[c(2,3),]
 
 #w.r.t Machine Learning
-model_level <- glm(preference ~ task + first, data = data_relevel, family = binomial(link = 'logit'))
+model_level <- glm(preference ~ task + background + first + active,
+             family = binomial(link = 'logit'), data = data_relevel)
 data_level <- broom::tidy(model_level)
 rebase <- data_level[c(2,3),]
 
@@ -224,7 +235,6 @@ model.2 <- glm(preference ~ task + background + experience + attitude + first + 
 
 ```{r}
 sw_model <- step(model.2, direction = "both", trace=FALSE)
-summary(sw_model)
 print(sw_model$formula)
 ```
 
@@ -234,6 +244,7 @@ print(sw_model$formula)
 ```{r, echo = FALSE}
 kable(final)
 ```
+
 ```{r, echo=FALSE, eval=FALSE}
 1/0.1736306
 ```
@@ -245,5 +256,4 @@ The people whose favorite task is Machine Learning are 13.9 times more likely to
 People whose favourite task is Data Wrangling are 5.8 times more likely to prefer R as their favourite language compared to people whose favorite task is Machine Learning.
 
 # Conclusion
-
 
