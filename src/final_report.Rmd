@@ -71,7 +71,7 @@ Our survey can be accessed fully [here](https://goo.gl/forms/zdl0VlHK2NwAfflE3).
 
 ## Analysis Methods
 
-The data collected as a result of our survey was downloaded as a `csv` file and imported into R for analysis. All data wrangling and visualization were done in the R computing environment. The code chunks that download data, apply wrangling and create plots can be found in [read_data.R](read_data.R), [clean_data.R](clean_data.R) and [get_plots.R](get_plots.R), respectively.
+The data collected as a result of our survey was downloaded as a `csv` file and imported into R for analysis. All data wrangling and visualization were done in the R computing environment. The code chunks that download data, apply wrangling and create plots can be found in [read_data.R](../src/read_data.R), [clean_data.R](../src/clean_data.R) and [get_plots.R](../src/get_plots.R), respectively.
 
 # Exploratory Data Analysis
 
