@@ -1,19 +1,20 @@
 ---
 title: "Data Science Language Analysis"
-subtitle: <h1><u>EDA Report</u></h1>
-author: 
-  - "Nazli Ozum Kafaee"
-  - "Prash Medirattaa"
-  - "Avinash Prabhakaran"
+author:
+- Nazli Ozum Kafaee
+- Prash Medirattaa
+- Avinash Prabhakaran
 date: '2018-04-15'
 output:
+  pdf_document:
+    toc: yes
   html_document:
-    keep_md: yes
-    toc: true
-    toc_float: true
-    theme: united
     highlight: tango
-    
+    keep_md: yes
+    theme: united
+    toc: yes
+    toc_float: yes
+subtitle: <h1><u>EDA Report</u></h1>
 ---
 
 ```{r setup, include=FALSE}
@@ -45,6 +46,34 @@ data_relevel$task <-relevel(data$task,ref="Machine Learning")
 mod <- glm(binary ~ task, data = data)
 summary(mod)
 ```
+
+### Interpretation 
+
+Defining the hypothesis 
+
+Response :   "Python" - 1
+               "R"   -  0
+
+Beta 0 (intercept) - Task vizualization
+
+Ho : Beta 1 (taskData wrangling)
+
+Model - logit(pi) = 0.30435 + 0.19565 *taskData wrangling + 0.54982 *taskMachine Learning
+
+We can say that about the model above,  Data wrangling  task appears to have a signifact impact on the probability of choosing language(python/R), while controlling the Machine Learning task. 
+
+
+```{r}
+plot(cooks.distance(mod))
+```
+
+```{r}
+anova(mod,test="Chi")
+```
+
+
+
+
 
 ```{r}
 mod <- glm(binary ~ task, data = data_relevel)
@@ -80,6 +109,8 @@ summary(mod)
 mod <- glm(binary ~ task + background + experience + first + active, data = data_relevel)
 summary(mod)
 ```
+
+
 ```{r}
 #Removing Experience as Confounder
 mod <- glm(binary ~ task + background + first + active, data = data)
