@@ -168,7 +168,7 @@ summary(model)
 
 ```{r}
 #https://stackoverflow.com/questions/11767602/backward-elimination-in-r?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
-mod <- glm(binary ~ task + background + experience + attitude + first + active, data = data)
+mod <- glm(binary ~ task * background * experience * attitude * first * active, data = data)
 be_mod <- step(mod, direction = "both", trace=FALSE)
 summary(be_mod)
 ```
@@ -185,3 +185,10 @@ data_relevel$first <-relevel(data$first,ref="R")
 model <- glm(binary ~ task + first, data = data_relevel)
 summary(model)
 ```
+
+
+```{r}
+model <- glm(binary ~ task * first, data = data_relevel)
+summary(model)
+```
+
