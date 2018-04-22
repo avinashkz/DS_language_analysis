@@ -5,6 +5,7 @@ author:
   - "Avinash Prabhakaran, Nazli Ozum Kafaee, Prash Medirattaa"
 date: '2018-04-22'
 output:
+  github_document: null
   pdf_document:
     number_sections: true
     toc: true
