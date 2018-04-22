@@ -2,7 +2,7 @@
 
 In this data analysis project, we aim to understand how the choice of programming language is affected by the preference of a data science task. 
 
-Our exploratory data analysis report can be found [here](results/report.md).
+Our final report can be found [here](results/final_report.pdf).
 
 ## Question
 
@@ -74,7 +74,7 @@ For the statistical analysis, we are planning to use Generalized Linear Model(GL
  Survey link:  https://goo.gl/forms/zdl0VlHK2NwAfflE3
  
 
-## How to Run the Data Analysis Pipeline
+## How To Run The Data Analysis Pipeline
 
 `make all`: To run the complete pipeline.
 
@@ -83,7 +83,7 @@ For the statistical analysis, we are planning to use Generalized Linear Model(GL
 `make remove`: To delete all plots, rendered documents, wrangled data as well as the raw data.
 
 
-## How to run the tests
+## How To Run The Tests
 
 `Rscript tests/tests.R`: To run all the tests
 
