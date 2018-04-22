@@ -1,6 +1,11 @@
 suppressPackageStartupMessages(library("dplyr"))
 suppressPackageStartupMessages(library("stringr"))
 
+main <- function() {
+#Reads the raw data from the data folder
+#Writes the cleaned data into the docs folder
+#  
+
 # Read in raw data
 survey <- read.csv("data/survey_responses.csv", stringsAsFactors = FALSE)[-c(1,2)] 
 
@@ -19,3 +24,8 @@ survey <- survey %>%
 
 # Write cleaned data into csv file
 write.csv(survey, "docs/survey_results_clean.csv", row.names = FALSE)
+
+}
+
+# call main function
+main()

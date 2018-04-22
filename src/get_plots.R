@@ -6,16 +6,14 @@ theme_set(theme_bw())
 
 
 pie_chart <- function(data, name){
-  
-  # 
+  # Returns a pie chart of the explanatory variable
   #
   # Args:
-  #   data: One of two vectors whose sample covariance is to be calculated.
-  #   name: Name of the 
+  #   data: Two column dataframe consisting of the response and explanatory variables.
+  #   name: Name of the explanatory variable 
   #
   # Returns:
-  #   A pie chart for the given variable.
-  
+  #   A bar plot for the given variable.
   if(missing(data)){
     stop('argument "data" is missing, with no default')
   }
@@ -73,16 +71,14 @@ pie_chart <- function(data, name){
 
 
 bar_plot <- function(data, name){
-  # Computes the sample covariance between two vectors.
+  # Returns a bar plot of the explanatory variable.
   #
   # Args:
-  #   x: One of two vectors whose sample covariance is to be calculated.
-  #   y: The other vector. x and y must have the same length, greater than one,
-  #      with no missing values.
-  #   verbose: If TRUE, prints sample covariance; if not, not. Default is TRUE.
+  #   data: Two column dataframe consisting of the response and explanatory variables.
+  #   name: Name of the explanatory variable 
   #
   # Returns:
-  #   The sample covariance between x and y.
+  #   A bar plot for the given variable.
   if(missing(data)){
     stop('argument "data" is missing, with no default')
   }
@@ -107,12 +103,12 @@ bar_plot <- function(data, name){
     summarise(count = n()) %>% ggplot() +
     geom_col(aes(x = fct_reorder(ax1,count, .desc = TRUE),
                  y = count, fill = Class), alpha = 0.7, color = "black") +
-    xlab(name) + 
+    xlab("") + 
     labs(title = paste(name), y = "Count") +
     scale_fill_manual(values = plot_colors) +
     theme_bw() + theme(plot.title = element_text(hjust = 0.5, size = 12),
                        axis.text.x = element_text(angle=45, vjust=0.5, size = 12))
   
-    return(p)
+  return(p)
 }
 
