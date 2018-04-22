@@ -9,6 +9,9 @@ output:
     number_sections: true
     toc: true
     highlight: "tango"
+    
+  github_document: null
+  
 urlcolor: "blue"
 ---
 
@@ -24,7 +27,6 @@ suppressPackageStartupMessages(library(broom))
 responses <- read.csv(file = "../docs/survey_results_clean.csv")
 ```
 
-\newpage
 
 # Introduction
 
@@ -119,7 +121,7 @@ ggdraw(add_sub(t, "M: Machine Learning, V: Data visualization, W: Data wrangling
 We had mentioned earlier that we should not forget about confounders and just look at the relationship between our dependent and independent variables without taking them into account. These confounders might be the real reason for the proportional difference we observe in the plot above. Therefore, concluding a causal inference without a careful consideration of the possible confounders would be naive. We made use of stacked bar plots in order to see the difference in the preference between R and Python depending on each category in our possible confounding variables. As can be seen in the plots below, we have observed that the proportion between the two languages changes depending on a person's experience in coding. Novice coders (`Less than 1`) prefer Python around 50% of the time whereas this proportion increases to around 60% for Intermediate (`1 to 5`) and experienced coders (`More than 5`). We can observe a proportional difference but this difference does not seem to be significant. Also, we should keep in mind that the number of respondents in each category are not equal and these proportions might have been similar or more different if we could have collected more data equally in each category. 
 
 
-```{r, echo=FALSE, fig.align='center'}
+```{r, echo=FALSE, fig.align='center', fig.height=4}
 #Coding experience
 #proportion_plot(responses[,c(4,5)], 4, plot_title, colnames(responses[,4]))
 ce <- bar_plot(responses[,c(2,5)], plot_title[2]) + xlab("")
@@ -158,11 +160,23 @@ p1
 We have observed that the first programming language has some effect on the choice between R and Python. People who have learned a statistical programming language (`R`, `Matlab`, `SAS`) as their first language seem to be leaning more towards R whereas this is the reverse for those groups that have learned a general-purpose programming language (`C`, `Python`) as their first language. 
 
 
-```{r, fig.align='center', echo=FALSE}
+```{r, fig.align='center', echo=FALSE, fig.height=4}
 p2
 ```
 
+\newpage
+
 # Statistical Analysis
+
+Our dependent variable has two categories as `R` and `Python`, so it is a binary variable (Python is coded as 1) and our independent variable is categorical with three categories. Therefore, we found it appropriate to use a `glm` model with logit link function as logistic regression is useful with binary random component and mixed systematic components.
+
+With the type of model specified, we tried fitting the model using different variables and assessed all of them before deciding on one. The models we have explored and their AIC scores can be seen below and further results can be found in [analysis.pdf](../results/analysis.pdf) in this repository. 
+
+```{r, echo=FALSE}
+kable(bind_cols(Sno =c("1","2","3","4","5","6","7"),Models = c("preference ~ task", "preference ~ task + background + experience + attitude + first + active", "preference ~ task + background + experience + first + active", "preference ~ task + background + first + active", "preference ~ task + background + first", "preference ~ task + background + active", "preference ~ task + first + active"), AIC = c(93.555, 90.394, 88.42, 86.694, 90.428, 90.411, 89.657)))
+```
+
+We considered the `AIC` score and interpretability when deciding on our final model. Primarily, we tried to choose the model with the lowest AIC score. However, this led us to models that were too complicated and very hard to interpret. Therefore, we tried to hold a balance between the goodness-of-fit with AIC score and the interpretability by limiting the complexity of the model.
 
 ```{r, echo=FALSE}
 #Binary encoding the response variable. Python -> 1; R -> 0 
@@ -186,19 +200,8 @@ data_relevel$task <-relevel(data$task, ref="Data wrangling")
 
 
 ```{r, eval=FALSE}
-#Fitting a GLM without any confounding variables.
-model.1 <- glm(preference ~ task, family = binomial(link = 'logit'), data = data)
-
-#Fitting GLM with all the confounding variables.
-model.2 <- glm(preference ~ task + background + experience + attitude + first + active, 
-               family = binomial(link = 'logit'), data = data)
-
 #Final Model with only first language as confounder
-model.3 <- glm(preference ~ task + first, family = binomial(link = 'logit'), data = data)
-
-#Releveling the data to obtain the comparison between Machine Learning and Data Wrangling.
-model.4 <- glm(preference ~ task + first, family = binomial(link = 'logit'), 
-               data = data_relevel)
+final_model <- glm(preference ~ task + first, family = binomial(link = 'logit'), data = data)
 ```
 
 
@@ -236,32 +239,31 @@ final <- final %>% mutate(`odds-ratio` = exp(estimate), lowerCI = exp(estimate -
 ```
 
 ```{r, echo=FALSE}
-broom::tidy(model_level) %>% kable()
+broom::tidy(model) %>% kable()
 ```
+
 ```{r, echo=FALSE}
 model.2 <- glm(preference ~ task + background + experience + attitude + first + active, data = data, family = binomial(link = 'logit'))
 ```
 
+An extra step we did was stepwise methodolgy to validate the results. We did manual backward elimination as we wanted to ensure that the `task` variable is present in the final model. 
 
 ```{r}
 #Feature selection using stepwise
 sw_model <- step(model.2, direction = "both", trace=FALSE)
 ```
 
-**preference ~ task + background + first + active**
+**Selected model:** `preference ~ task + background + first + active`
 
+$$logit(p) = log(\frac{p}{1-p}) = \beta_0 + \beta_1 * \text{task} + \beta_2 * \text{background} + \beta_3 * \text{first} + \beta_4 * \text{active}$$
 
+**Assumptions** 
 
-```{r}
-kable(bind_cols(model = c("preference ~ task", "preference ~ task + background + experience + attitude + first + active", "preference ~ task + background + experience + first + active", "preference ~ task + background + first + active", "preference ~ task + background + first", "preference ~ task + background + active", "preference ~ task + first + active"), AIC = c(93.555, 90.394, 88.42, 86.694, 90.428, 90.411, 89.657)))
-```
+- In our study there are three confunding variable(Academic background,first programming language and number of languages used actively).
 
+- No interactions was there between expalanatory variables and the confunding variables in the model.
 
-
-
-
-
-
+- There is also no interaction between the confounding variables themselves.
 
 # Results
 
@@ -271,28 +273,26 @@ names(final) <- c("Comparison", "Reference", "Estimate", "Std.Error", "p.value",
 kable(final)
 ```
 
-The people whose favorite task is Data Wrangling are 2.4 times more likely to select Python as their favorite language compared to people whose favorite task is Data Visualization.
+- People whose favorite task is Data Wrangling are 8.4 times more likely to select Python as their favorite language compared to people whose favorite task is Data Visualization.
 
-The people whose favorite task is Machine Learning are 13.9 times more likely to select Python as their favorite language compared to people whose favorite task is Data Visualization.
+- People whose favorite task is Machine Learning  are 61.2 times more likely to select Python as their favorite language compared to people whose favorite task is Data Visualization.
 
-People whose favourite task is Machine Learning are 5.8 times more likely to prefer Python as their favourite language compared to people whose favorite task is Data Wrangling.
+- People whose favourite task is Machine Learning are 7.3 times more likely to prefer Python as their favourite language compared to people whose favorite task is Data Wrangling
 
-```{r, fig.align='center', echo=FALSE}
+```{r, fig.align='center', echo=FALSE, fig.height = 3}
 
 final$Reference <- c("dviz", "dviz", "ml")
 labels <- c(dviz = "Reference - Data Visualization", ml = "Reference - Data Wrangling")
 
 final %>% ggplot(aes(Comparison, `Odds-Ratio`, color = Reference)) +
-  geom_point(size = 3) + geom_errorbar(aes(ymin = LowerCI, ymax = UpperCI, color = Reference), width = 0.4) +
-  scale_y_log10(limits = c(NA,6000)) +
-  geom_text(aes(label = round(LowerCI,2), y = LowerCI), vjust = 1.25) +
-  geom_text(aes(label = round(UpperCI,2), y = UpperCI), vjust = -.25) +
+  geom_point(size = 3) + geom_errorbar(aes(ymin = LowerCI, ymax = UpperCI, color = Reference), width = 0.2) +
+  scale_y_log10() +
+  geom_text(aes(label = round(LowerCI,2), y = LowerCI), hjust = 1.85, size = 3) +
+  geom_text(aes(label = round(UpperCI,2), y = UpperCI), hjust = 1.85, size = 3) +
   facet_wrap(~Reference, labeller = labeller(Reference = labels)) +
   labs(title = "Confidence Interval For Odds-Ratio", y = "Odds-ratio in log-scale", x = "Comparison") +
   theme(plot.title = element_text(hjust = 0.5, size = 12)) + guides(color = FALSE) +
   scale_color_discrete("Reference", breaks = c("dviz", "ml"), labels = c("Data Visualization", "Data Wrangling"))
 ```
 
-
-# Conclusion
-
+We also provide the confidence intervals of these point estimates in the plot above. This plot shows that our point estimates have quite wide confidence intervals indicating some uncertainty. Out of these intervals, the comparison of Machine Learning category against Data Visualization is relatively wider, ranging from 5.81 to 645.12.
