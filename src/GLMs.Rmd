@@ -15,7 +15,15 @@ output:
     toc: yes
     toc_float: yes
 subtitle: <h1><u>EDA Report</u></h1>
+
 ---
+
+
+```{r}
+
+library(MASS)
+```
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -60,7 +68,25 @@ Ho : Beta 1 (taskData wrangling)
 
 Model - logit(pi) = 0.30435 + 0.19565 *taskData wrangling + 0.54982 *taskMachine Learning
 
-We can say that about the model above,  Data wrangling  task appears to have a signifact impact on the probability of choosing language(python/R), while controlling the Machine Learning task. 
+We can say that about the model above,  Data wrangling  task appears to have not signifact impact on the probability of choosing language(python/R), while controlling the Machine Learning task. 
+
+
+```{r}
+exp(cbind(coef(mod), confint(mod)))  
+```
+
+The odds ratio for the value of the intercept(Data Vizualization Task) is the odds of "success"(in our survey results - python )
+
+The odds ratio for the value of the intercept is the odds of a "success" (in your data, this is the odds of taking the product) when x = 0 (i.e. zero thoughts)
+
+
+
+```{r}
+cbind( exp(coef(mod)), exp(summary(mod)$coefficients[,1] - 1.96*summary(mod)$coefficients[,2]), exp(summary(mod)$coefficients[,1] + 1.96*summary(mod)$coefficients[,2]) )
+```
+
+
+
 
 
 ```{r}
