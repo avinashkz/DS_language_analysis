@@ -24,6 +24,8 @@ suppressPackageStartupMessages(library(broom))
 responses <- read.csv(file = "../docs/survey_results_clean.csv")
 ```
 
+\newpage
+
 # Introduction
 
 It is common to hear from people working with data that they have a clear choice between R and Python. Almost everyone who has worked with both R and Python have one or the other as their favorite. We were curious if there might be a specific reason underlying such choice. After some brainstroming, we came up with the hypothesis that a person's choice between R and Python might be due to their preference in a specific data science task such as data visualization, data wrangling and machine learning. This hypothesis was based solely on observations and personal experience, but we set the goal to explore such causal relationship (if there exists one) with data in our data analysis project.
@@ -105,7 +107,7 @@ We were faced with a similar issue in the answers to the question which asked re
 Our primary goal was to see how the preference between R and Python changed depending on a person's favorite data science task. In the plot below, we can see that Python is more popular among people whose preferred data science task is machine learning. However, R seems to be the preferred language when it comes to data visualization. In the data wrangling category, there is an equal split between R and Python.
 
 ```{r, echo=FALSE, fig.align='center'}
-t <- bar_plot(responses[,c(6,5)], plot_title[7]) + xlab("") +
+t <- bar_plot(responses[,c(6,5)], plot_title[7]) +
   scale_x_discrete(labels=c("Machine Learning" = "M", "Data visualization" = "V",
                               "Data wrangling" = "W")) + 
   theme(axis.text.x = element_text(angle=0, vjust=0.5, size = 12))
@@ -275,7 +277,7 @@ The people whose favorite task is Data Wrangling are 2.4 times more likely to se
 
 The people whose favorite task is Machine Learning are 13.9 times more likely to select Python as their favorite language compared to people whose favorite task is Data Visualization.
 
-People whose favourite task is Data Wrangling are 5.8 times more likely to prefer R as their favourite language compared to people whose favorite task is Machine Learning.
+People whose favourite task is Machine Learning are 5.8 times more likely to prefer Python as their favourite language compared to people whose favorite task is Data Wrangling.
 
 ```{r, fig.align='center', echo=FALSE}
 
