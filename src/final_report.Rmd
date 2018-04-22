@@ -9,9 +9,6 @@ output:
     number_sections: true
     toc: true
     highlight: "tango"
-    
-  github_document: null
-  
 urlcolor: "blue"
 ---
 
@@ -27,22 +24,21 @@ suppressPackageStartupMessages(library(broom))
 responses <- read.csv(file = "../docs/survey_results_clean.csv")
 ```
 
-
 # Introduction
 
-It is common to hear from people working with data that they have a clear choice between R and Python. Almost everyone who has worked with both R and Python have one or the other as their favorite. We were curious if there might be a specific reason underlying such choice. After some brainstroming, we came up with the hypothesis that a person's choice between R and Python might be due to their preference in a specific data science task such as data visualization, data wrangling and machine learning. This hypothesis was based solely on observations and personal experience, but we set the goal to explore such causal relationship (if there exists one) with data in our data analysis project.
+It is common to hear from people working with data that they have a clear choice between R and Python. Almost everyone who has worked with both R and Python have one or the other as their favorite. We were curious to know if there could be a specific reason underlying such choice. After some brainstorming, we came up with the hypothesis that a person's choice between R and Python might be due to their preference in a specific data science task such as data visualization, data wrangling and machine learning. This hypothesis was solely based on our observation and personal experience.  However, we have set the goal to explore such causal relationship (if there exists one) with data in our data analysis project.
 
 # Methodology
 
 ## Data collection
 
-Our primary data source was an online survey created on Google Forms and distributed to the MDS cohort, faculty and teaching assistants through Slack channels as well as to people in the authors' Linkedin and Whatsapp network. In the end, we managed to collect 85 responses.
+Our primary data source was an online survey created on Google Forms and distributed to the MDS cohort, faculty and teaching assistants through slack channels as well as through contacts in the authors' Linkedin and Whatsapp network. In the end, we managed to collect 85 responses.
 
-One of the concerns we had to address was regarding the storage of the collected data. Since we used Google Forms for our survey, the data was hosted in the US. Assuming that a great majority of our respondents were Canadian residents, we made sure to inform them of the fact that the data being collected is hosted in the US and to get their consent before proceeding further in the survey. More information on this matter can be found in the [UBC Office of Research Ethics - Using Online Surveys](https://ethics.research.ubc.ca/sites/ore.ubc.ca/files/documents/Online_Survey-GN.pdf) document.
+One of the concerns we had to address was storage of collected data. Since we used Google Forms for our survey, the data was hosted in the US. Assuming that a great majority of our respondents were Canadian residents, we had to inform them of the fact that the data being collected is hosted in the US and take their consent before proceeding further in the survey. More information on this matter can be found in the [UBC Office of Research Ethics - Using Online Surveys](https://ethics.research.ubc.ca/sites/ore.ubc.ca/files/documents/Online_Survey-GN.pdf) document.
 
 ## Study Design
 
-In our survey, we wanted repondents to answer two main questions: 
+In our survey, we wanted respondents to answer two main questions: 
 
 - Which of the following programming languages do you prefer more?  
 _Possible answers:_ "R" / "Python"  
@@ -50,9 +46,9 @@ _Possible answers:_ "R" / "Python"
 - What is your favorite data science task?  
 _Possible answers:_ "Data wrangling" / "Data visualization" / "Machine Learning"
 
-In the former, respondents were required to choose one of "R" or "Python" and in the latter, they could choose one of three options which were "Data wrangling", "Data visualization" and "Machine Learning". The answers to these two questions would provide us the information for the dependent and independent variables in our analysis, respectively. 
+In the former, respondents were required to choose between  "R" and "Python" .  In the latter, they could choose one from the three options of  "Data wrangling", "Data visualization" and "Machine Learning". The answers to these two questions would provide us with the information for the dependent and independent variables in our analysis, respectively. 
 
-In order to fully discover the causal relationship between task preference and language preference, we also collected data about factors that could have an effect on both of our dependent and independent variable. The primary goal in collecting information on possible confounding variables was to ensure that we can control for these in our analysis later on. We determined five possible confounding variables for which we asked the following questions:
+In order to fully discover the causal relationship between task preference and language preference, we also collected data about factors that could have an effect on both of our dependent and independent variable. The primary goal of collecting information on possible confounding variables was to ensure that we can control for these in our analysis later on. We determined five possible confounding variables for which we asked the following questions:
 
 - What is your academic background?    
 _Possible answers:_ "Computer Science/Computer Engineering" / "Mathematics/Statistics" / "Other"  
@@ -69,7 +65,7 @@ _Possible answers:_ "Python" / "R" / "SAS" / "Matlab" / "C" / "Java" / "Other"
 - How many programming languages do you use actively?  
 _Possible answers:_ "1" / "2" / "3" / "4" / "5 or more"
 
-We thought that academic background would be a confounding variable as people with Computer Science/Computer Engineering background would have been introduced to Python as part of their degree and people from Mathematics/Statistics degrees would have been introduced to R in general. However, we did not anticipate any bias towards R or Python by graduates of any other degrees. We also believed that the amount of coding experience could be a confounder as it can be indicate how open the user is in selecting a statistical programming language over a general-purpose programming language. However, we also realized that it is possible that a user can become highly opinionated when they have greater experience, and they might prefer Python. Therefore, we wanted to include this variable in our survey as it would be interesting to analyze. Another variable we wanted to collect information on was the user's attitude towards coding. The outlook towards coding could be a confounder as Python is a general-purpose programming language and it can be used in various areas, and its application is not limited to Data Science/Statistics whereas R is a statistical programming language and is mainly used only in the fields of Data Science and Statistics. Again, a person's first programming language would be very influential as it dictates their style of coding and would also be a deciding factor in what they seek for in other languages. Some of the programming languages are more closely related to Python whereas some others are more related to R. The number of programming languages a person actively uses could be a deciding factor too as it can dictate how comfortable the user is in using different syntaxes and will also be indicative of how flexible the user.
+We thought that academic background would be a confounding variable as people with Computer Science/Computer Engineering background would have been introduced to Python as part of their degree and people from Mathematics/Statistics degrees would have been introduced to R in general. However, we did not anticipate any bias towards R or Python by graduates of any other degrees. We also believed that the amount of coding experience could be a confounder as it can indicate how open the user is in selecting a statistical programming language over a general-purpose programming language. However, we also realized that it was possible that a user could become highly opinionated when they have more experience, and they might prefer Python. Therefore, we wanted to include this variable in our survey as it would be interesting to analyze the same. Another variable on which we wanted to collect information was the user's attitude towards coding. The outlook towards coding could be a confounder as Python is a general-purpose programming language and it can be used in various areas, and its application is not limited to Data Science/Statistics whereas R is a statistical programming language and is mainly used in the fields of Data Science and Statistics. Again, a person's first programming language would be very influential as it dictates their style of coding and would also be a deciding factor in what they seek in other languages. Some of the programming languages are more closely related to Python whereas some others are more related to R. The number of programming languages a person actively uses could be a deciding factor too as it can indicate how comfortable the user is with different syntaxes and also how flexible the user is.
 
 Our survey can be accessed fully [here](https://goo.gl/forms/zdl0VlHK2NwAfflE3).
 
@@ -102,7 +98,7 @@ ggdraw(add_sub(b, "CS/CE: Computer Science/Computer Engineering, O: Other, \n M/
 ```
 
 
-We were faced with a similar issue in the answers to the question which asked respondents about the first programming language they learned. Again, we gave respondents six main options to choose from and an "Other" option to fill in if necessary. They could freely type the name of their first programming language if it was not one of the predetermined languages listed. We observed that the "Other" option comprised of varying languages but each answer held one or two people and none of the languages that we had not listed represented a major group of people. Therefore, we aggregated all answers in "Other" and kept them together.
+We faced another issue in the answers to the question which asked respondents about the first programming language they learned. Again, we gave respondents six main options to choose from and an "Other" option to fill in if necessary. They could freely type the name of their first programming language if it was not one of the predetermined languages listed. We observed that none of the languages that we had listed represented a major group of people and the highest number of respondents chose "Others".  The "Other" option comprised of varying languages but each had only one or two respondents. So the responses did not indicate any meaningful pattern.  Therefore, we aggregated all answers in "Other" and kept the options unchanged.
 
 ## Visualizations
 
@@ -118,10 +114,10 @@ ggdraw(add_sub(t, "M: Machine Learning, V: Data visualization, W: Data wrangling
 ```
 
 
-We had mentioned earlier that we should not forget about confounders and just look at the relationship between our dependent and independent variables without taking them into account. These confounders might be the real reason for the proportional difference we observe in the plot above. Therefore, concluding a causal inference without a careful consideration of the possible confounders would be naive. We made use of stacked bar plots in order to see the difference in the preference between R and Python depending on each category in our possible confounding variables. As can be seen in the plots below, we have observed that the proportion between the two languages changes depending on a person's experience in coding. Novice coders (`Less than 1`) prefer Python around 50% of the time whereas this proportion increases to around 60% for Intermediate (`1 to 5`) and experienced coders (`More than 5`). We can observe a proportional difference but this difference does not seem to be significant. Also, we should keep in mind that the number of respondents in each category are not equal and these proportions might have been similar or more different if we could have collected more data equally in each category. 
+We had mentioned earlier that we should not forget about confounders and needed to take them into account when looking at the relationship between our dependent and independent variables. These confounders might be the real reason for the proportional difference we observe in the plot above. Therefore, concluding a causal inference without careful consideration of the possible confounders would be naive. We made use of stacked bar plots in order to see the difference in the preference between R and Python depending on each category in our possible confounding variables. As can be seen in the plots below, we have observed that the proportion between the two languages changes depending on a person's experience in coding. Novice coders (`Less than 1`) prefer Python around 50% of the time whereas this proportion increases to around 60% for Intermediate (`1 to 5`) and experienced coders (`More than 5`). We can observe a proportional difference, but this difference does not seem to be significant. Also, we should keep in mind that the number of respondents in each category are not equal and these proportions might have been similar or more different if we could have collected data equally in each category. 
 
 
-```{r, echo=FALSE, fig.align='center', fig.height=4}
+```{r, echo=FALSE, fig.align='center'}
 #Coding experience
 #proportion_plot(responses[,c(4,5)], 4, plot_title, colnames(responses[,4]))
 ce <- bar_plot(responses[,c(2,5)], plot_title[2]) + xlab("")
@@ -160,17 +156,15 @@ p1
 We have observed that the first programming language has some effect on the choice between R and Python. People who have learned a statistical programming language (`R`, `Matlab`, `SAS`) as their first language seem to be leaning more towards R whereas this is the reverse for those groups that have learned a general-purpose programming language (`C`, `Python`) as their first language. 
 
 
-```{r, fig.align='center', echo=FALSE, fig.height=4}
+```{r, fig.align='center', echo=FALSE}
 p2
 ```
 
-\newpage
-
 # Statistical Analysis
 
-Our dependent variable has two categories as `R` and `Python`, so it is a binary variable (Python is coded as 1) and our independent variable is categorical with three categories. Therefore, we found it appropriate to use a `glm` model with logit link function as logistic regression is useful with binary random component and mixed systematic components.
+Our dependent variable has two categories, `R` and `Python`.  So it is a binary variable (Python is coded as 1).   Our independent variable has three categories. Therefore, we found it appropriate to use a `glm` model with logit link function as logistic regression is useful with binary random component and mixed systematic components.
 
-With the type of model specified, we tried fitting the model using different variables and assessed all of them before deciding on one. The models we have explored and their AIC scores can be seen below and further results can be found in [analysis.pdf](../results/analysis.pdf) in this repository. 
+Within the specified type of model, we tried using different variables and assessed all of them before deciding on one option. The models we have explored and their AIC scores can be seen below and further results can be found in [analysis.pdf](../results/analysis.pdf) in this repository. 
 
 ```{r, echo=FALSE}
 kable(bind_cols(Sno =c("1","2","3","4","5","6","7"),Models = c("preference ~ task", "preference ~ task + background + experience + attitude + first + active", "preference ~ task + background + experience + first + active", "preference ~ task + background + first + active", "preference ~ task + background + first", "preference ~ task + background + active", "preference ~ task + first + active"), AIC = c(93.555, 90.394, 88.42, 86.694, 90.428, 90.411, 89.657)))
@@ -246,7 +240,7 @@ broom::tidy(model) %>% kable()
 model.2 <- glm(preference ~ task + background + experience + attitude + first + active, data = data, family = binomial(link = 'logit'))
 ```
 
-An extra step we did was stepwise methodolgy to validate the results. We did manual backward elimination as we wanted to ensure that the `task` variable is present in the final model. 
+Additionally, we adopted a stepwise methodology to validate the results. We did manual backward elimination to ensure that the `task` variable is present in the final model. 
 
 ```{r}
 #Feature selection using stepwise
@@ -259,9 +253,9 @@ $$logit(p) = log(\frac{p}{1-p}) = \beta_0 + \beta_1 * \text{task} + \beta_2 * \t
 
 **Assumptions** 
 
-- In our study there are three confunding variable(Academic background,first programming language and number of languages used actively).
+- In our study, there are three confounding variables(Academic background, first programming language and the number of languages  actively used).
 
-- No interactions was there between expalanatory variables and the confunding variables in the model.
+- No interactions were there between explanatory variables and the confounding variables in the model.
 
 - There is also no interaction between the confounding variables themselves.
 
@@ -275,9 +269,9 @@ kable(final)
 
 - People whose favorite task is Data Wrangling are 8.4 times more likely to select Python as their favorite language compared to people whose favorite task is Data Visualization.
 
-- People whose favorite task is Machine Learning  are 61.2 times more likely to select Python as their favorite language compared to people whose favorite task is Data Visualization.
+- People whose favorite task is Machine Learning are 61.2 times more likely to select Python as their favorite language compared to people whose favorite task is Data Visualization.
 
-- People whose favourite task is Machine Learning are 7.3 times more likely to prefer Python as their favourite language compared to people whose favorite task is Data Wrangling
+- People whose favorite task is Machine Learning are 7.3 times more likely to prefer Python as their favorite language compared to people whose favorite task is Data Wrangling
 
 ```{r, fig.align='center', echo=FALSE, fig.height = 3}
 
@@ -296,3 +290,6 @@ final %>% ggplot(aes(Comparison, `Odds-Ratio`, color = Reference)) +
 ```
 
 We also provide the confidence intervals of these point estimates in the plot above. This plot shows that our point estimates have quite wide confidence intervals indicating some uncertainty. Out of these intervals, the comparison of Machine Learning category against Data Visualization is relatively wider, ranging from 5.81 to 645.12.
+
+
+
