@@ -6,7 +6,7 @@ theme_set(theme_bw())
 
 
 pie_chart <- function(data, name){
-  # 
+  # Returns a pie chart of the explanatory variable
   #
   # Args:
   #   data: Two column dataframe consisting of the response and explanatory variables.
@@ -71,7 +71,7 @@ pie_chart <- function(data, name){
 
 
 bar_plot <- function(data, name){
-  # 
+  # Returns a bar plot of the explanatory variable.
   #
   # Args:
   #   data: Two column dataframe consisting of the response and explanatory variables.
