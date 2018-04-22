@@ -179,7 +179,6 @@ summary(mod)
 **Removing Background as confounder as the model with only first language as confounder gives the lowest AIC score**
 
 
-#Final Model
 
 ```{r}
 #Model with first language and background
@@ -196,10 +195,14 @@ summary(model)
 #p.adjust(p.vals ,method = "BH") < 0.05
 ```
 
+```{r}
+model <- glm(binary ~ task * first, data = data_relevel)
+summary(model)
+```
 
 ```{r}
 #https://stackoverflow.com/questions/11767602/backward-elimination-in-r?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
-mod <- glm(binary ~ task + background + experience + attitude + first + active, data = data)
+mod <- glm(binary ~ task * background * experience * attitude * first * active, data = data)
 be_mod <- step(mod, direction = "both", trace=FALSE)
 summary(be_mod)
 ```
@@ -216,3 +219,5 @@ data_relevel$first <-relevel(data$first,ref="R")
 model <- glm(binary ~ task + first, data = data_relevel)
 summary(model)
 ```
+
+
